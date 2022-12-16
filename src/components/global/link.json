@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_global_links",
+  "info": {
+    "displayName": "Link",
+    "icon": "globe-asia",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "url": {
+      "type": "string",
+      "required": true
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

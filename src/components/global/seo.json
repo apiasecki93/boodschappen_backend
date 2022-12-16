@@ -1,0 +1,41 @@
+{
+  "collectionName": "components_global_seos",
+  "info": {
+    "displayName": "SEO",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "metaTitle": {
+      "type": "string",
+      "maxLength": 60,
+      "default": "include 1-2 keywords",
+      "required": true
+    },
+    "metaDescription": {
+      "type": "string",
+      "required": false,
+      "maxLength": 155,
+      "default": "Try to place essential keywords (2-3)."
+    },
+    "keywords": {
+      "type": "string",
+      "default": "comma separated"
+    },
+    "indexing": {
+      "type": "boolean",
+      "default": true,
+      "required": true
+    },
+    "metaUrl": {
+      "type": "string",
+      "required": false
+    },
+    "metaImage": {
+      "displayName": "Media",
+      "type": "component",
+      "repeatable": false,
+      "component": "global.media"
+    }
+  }
+}
