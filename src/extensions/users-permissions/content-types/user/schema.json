@@ -91,6 +91,12 @@
         "Confirmed"
       ],
       "default": "None"
+    },
+    "company": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::aanbieder.aanbieder",
+      "mappedBy": "user"
     }
   }
 }

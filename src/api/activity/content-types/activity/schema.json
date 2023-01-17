@@ -1,0 +1,60 @@
+{
+  "kind": "collectionType",
+  "collectionName": "activities",
+  "info": {
+    "singularName": "activity",
+    "pluralName": "activities",
+    "displayName": "Activity",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "price": {
+      "type": "decimal"
+    },
+    "activity_url": {
+      "type": "string"
+    },
+    "age": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.number-range"
+    },
+    "duration": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.number-range"
+    },
+    "groupsize": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.number-range"
+    },
+    "company": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::aanbieder.aanbieder",
+      "inversedBy": "activities"
+    },
+    "themas": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::thema.thema"
+    },
+    "title_en": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "description_en": {
+      "type": "text"
+    }
+  }
+}

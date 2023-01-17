@@ -1,0 +1,36 @@
+{
+  "kind": "singleType",
+  "collectionName": "dashboard_pages",
+  "info": {
+    "singularName": "dashboard-page",
+    "pluralName": "dashboard-pages",
+    "displayName": "Account Dashboard",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "pluginOptions": {}
+    },
+    "address": {
+      "type": "string",
+      "pluginOptions": {}
+    },
+    "reviews_title": {
+      "type": "string",
+      "pluginOptions": {}
+    },
+    "reviews_show_more": {
+      "type": "string",
+      "pluginOptions": {}
+    },
+    "edit_button": {
+      "type": "string",
+      "pluginOptions": {}
+    }
+  }
+}

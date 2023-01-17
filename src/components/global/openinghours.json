@@ -1,0 +1,45 @@
+{
+  "collectionName": "components_global_openinghours",
+  "info": {
+    "displayName": "OpeningHours",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "Monday": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.openinghour"
+    },
+    "Tuesday": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.openinghour"
+    },
+    "Wednesday": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.openinghour"
+    },
+    "Thursday": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.openinghour"
+    },
+    "Friday": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.openinghour"
+    },
+    "Saturday": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.openinghour"
+    },
+    "Sunday": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.openinghour"
+    }
+  }
+}

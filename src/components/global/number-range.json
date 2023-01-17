@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_global_number_ranges",
+  "info": {
+    "displayName": "NumberRange",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "start": {
+      "type": "decimal"
+    },
+    "end": {
+      "type": "decimal"
+    }
+  }
+}

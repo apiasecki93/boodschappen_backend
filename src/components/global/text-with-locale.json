@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_global_text_with_locales",
+  "info": {
+    "displayName": "LocalizedText",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "en": {
+      "type": "text"
+    },
+    "nl": {
+      "type": "text"
+    }
+  }
+}

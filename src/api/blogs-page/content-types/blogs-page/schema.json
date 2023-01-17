@@ -1,0 +1,28 @@
+{
+  "kind": "singleType",
+  "collectionName": "blogs_pages",
+  "info": {
+    "singularName": "blogs-page",
+    "pluralName": "blogs-pages",
+    "displayName": "Blogs Page",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_global_openinghour",
+  "info": {
+    "displayName": "TimeRange",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "start": {
+      "type": "time"
+    },
+    "end": {
+      "type": "time"
+    },
+    "closed": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

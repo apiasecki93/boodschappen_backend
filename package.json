@@ -15,8 +15,8 @@
     "@strapi/provider-email-sendgrid": "^4.5.3",
     "@strapi/provider-upload-cloudinary": "4.5.3",
     "@strapi/strapi": "4.5.3",
+    "better-sqlite3": "^8.0.1",
     "pg": "8.7.3",
-    "sqlite3": "^5.1.2",
     "strapi-plugin-populate-deep": "^1.1.2"
   },
   "author": {

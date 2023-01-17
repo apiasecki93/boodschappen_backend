@@ -16,7 +16,7 @@ module.exports = (plugin) => {
         ctx.request.body = _.pick(data, ['firstname', 'lastname']);
         ctx.params = { id: user.id };
 
-        strapi.plugins.upload.services.upload.upload({
+        const result = await strapi.plugins.upload.services.upload.upload({
             data: {
                 refId: user.id,
                 ref: "plugin::users-permissions.user",
@@ -25,7 +25,10 @@ module.exports = (plugin) => {
             },
             files: files.thumbnail,
         });
-        return await strapi.plugins['users-permissions'].controller('user').update(ctx);
+        if(result){
+          return await strapi.plugins['users-permissions'].controller('user').update(ctx);
+        }
+        
     }
 
     // Pick only specific fields for security

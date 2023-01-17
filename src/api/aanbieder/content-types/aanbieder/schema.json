@@ -1,0 +1,92 @@
+{
+  "kind": "collectionType",
+  "collectionName": "aanbieders",
+  "info": {
+    "singularName": "aanbieder",
+    "pluralName": "aanbieders",
+    "displayName": "Company",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": false,
+      "unique": false
+    },
+    "address": {
+      "type": "string"
+    },
+    "website_url": {
+      "type": "string"
+    },
+    "zipcode": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "telephone": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "openinghours": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.openinghours"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "company"
+    },
+    "accessibilities": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::accessibility.accessibility"
+    },
+    "languages": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::language.language"
+    },
+    "paymentmethods": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::paymentmethod.paymentmethod"
+    },
+    "activities": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::activity.activity",
+      "mappedBy": "company"
+    },
+    "description_en": {
+      "type": "text"
+    },
+    "email": {
+      "type": "string"
+    },
+    "thumbnail": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "images": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": true
+    }
+  }
+}

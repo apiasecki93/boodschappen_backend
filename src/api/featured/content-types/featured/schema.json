@@ -1,0 +1,31 @@
+{
+  "kind": "singleType",
+  "collectionName": "featureds",
+  "info": {
+    "singularName": "featured",
+    "pluralName": "featureds",
+    "displayName": "Featured",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "activities_nl": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::activity.activity"
+    },
+    "activities_en": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::activity.activity"
+    },
+    "themas": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::thema.thema"
+    }
+  }
+}

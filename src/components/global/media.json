@@ -11,7 +11,7 @@
       "required": true,
       "maxLength": 60
     },
-    "Image": {
+    "image": {
       "type": "media",
       "multiple": false,
       "required": true,

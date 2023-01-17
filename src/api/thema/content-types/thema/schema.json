@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "themas",
+  "info": {
+    "singularName": "thema",
+    "pluralName": "themas",
+    "displayName": "Thema",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "thumbnail": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "title": {
+      "type": "string"
+    },
+    "title_en": {
+      "type": "string"
+    }
+  }
+}
