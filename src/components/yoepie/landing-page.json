@@ -1,0 +1,94 @@
+{
+  "collectionName": "components_yoepie_landing_pages",
+  "info": {
+    "displayName": "LandingPage",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "section1_content": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.localized-rich-text"
+    },
+    "section1_link": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.link"
+    },
+    "section1_image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "section2_title": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.localized-title"
+    },
+    "section2_logos": {
+      "type": "component",
+      "repeatable": true,
+      "component": "global.media"
+    },
+    "section3_title": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.localized-title"
+    },
+    "section3_content": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.localized-rich-text"
+    },
+    "section3_link": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.link"
+    },
+    "section3_image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "section4_title": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.localized-title"
+    },
+    "section4_visuals": {
+      "type": "component",
+      "repeatable": true,
+      "component": "global.media"
+    },
+    "section5_title": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.localized-title"
+    },
+    "section5_content": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.localized-rich-text"
+    },
+    "section5_link": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.link"
+    },
+    "section5_image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    }
+  }
+}

@@ -6,36 +6,44 @@
   },
   "options": {},
   "attributes": {
-    "metaTitle": {
+    "title": {
       "type": "string",
       "maxLength": 60,
       "default": "include 1-2 keywords",
       "required": true
     },
-    "metaDescription": {
-      "type": "string",
+    "description": {
+      "type": "text",
       "required": false,
       "maxLength": 155,
       "default": "Try to place essential keywords (2-3)."
     },
     "keywords": {
       "type": "string",
-      "default": "comma separated"
+      "default": "comma separated values"
     },
     "indexing": {
       "type": "boolean",
       "default": true,
       "required": true
     },
-    "metaUrl": {
+    "url": {
       "type": "string",
       "required": false
     },
-    "metaImage": {
-      "displayName": "Media",
-      "type": "component",
-      "repeatable": false,
-      "component": "global.media"
+    "title_en": {
+      "type": "string",
+      "required": true,
+      "maxLength": 60
+    },
+    "description_en": {
+      "type": "text"
+    },
+    "keywords_en": {
+      "type": "string"
+    },
+    "url_en": {
+      "type": "string"
     }
   }
 }

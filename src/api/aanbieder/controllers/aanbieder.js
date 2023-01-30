@@ -5,6 +5,7 @@
  */
 
 const { createCoreController } = require('@strapi/strapi').factories;
+const { convertRestQueryParams, buildQuery } = require('@strapi/utils');
 
 // module.exports = createCoreController('api::aanbieder.aanbieder');
 
@@ -19,7 +20,7 @@ module.exports = createCoreController('api::aanbieder.aanbieder', {
             .update('api::aanbieder.aanbieder', response.data.id, { data: { user: id } })
         return updatedResponse;
     },
-
+    
     async deleteThumbnail(ctx) {
         var { id } = ctx.state.user; //ctx.state.user contains the current authenticated user 
         if (!id) return ctx.badRequest('Could not find user.', { ok: false });
@@ -48,7 +49,7 @@ module.exports = createCoreController('api::aanbieder.aanbieder', {
             populate: { images: true },
         });
         if (!entry) return ctx.badRequest('Could not find company.', { ok: false });
-        
+
         const imageIdIsValid = entry.images.filter((image) => image.id == imageId).length? true : false;
         if (!imageIdIsValid) return ctx.badRequest('Could not find image for company.', { ok: false });
         

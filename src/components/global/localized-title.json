@@ -1,14 +1,15 @@
 {
   "collectionName": "components_global_localized_titles",
   "info": {
-    "displayName": "LocalizedTitle"
+    "displayName": "LocalizedTitle",
+    "description": ""
   },
   "options": {},
   "attributes": {
-    "nl": {
+    "title": {
       "type": "string"
     },
-    "en": {
+    "title_en": {
       "type": "string"
     }
   }

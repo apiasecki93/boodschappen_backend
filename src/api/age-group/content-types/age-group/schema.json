@@ -1,0 +1,35 @@
+{
+  "kind": "collectionType",
+  "collectionName": "age_groups",
+  "info": {
+    "singularName": "age-group",
+    "pluralName": "age-groups",
+    "displayName": "AgeGroup",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "ages": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.number-range"
+    },
+    "thumbnail": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "title_en": {
+      "type": "string"
+    }
+  }
+}

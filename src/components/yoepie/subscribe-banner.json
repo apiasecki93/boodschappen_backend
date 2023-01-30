@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_yoepie_subscribe_banners",
+  "info": {
+    "displayName": "subscribeBanner",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "title_en": {
+      "type": "string"
+    },
+    "content": {
+      "type": "richtext"
+    },
+    "content_en": {
+      "type": "richtext"
+    },
+    "link": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.link"
+    }
+  }
+}

@@ -10,135 +10,100 @@
   "options": {
     "draftAndPublish": false
   },
-  "pluginOptions": {
-    "i18n": {
-      "localized": true
-    }
-  },
+  "pluginOptions": {},
   "attributes": {
     "SEO": {
       "type": "component",
       "repeatable": false,
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
+      "pluginOptions": {},
       "component": "global.seo"
     },
     "section2_title": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
+      "pluginOptions": {},
       "type": "string"
     },
     "section3_title": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
+      "pluginOptions": {},
       "type": "string"
     },
     "section4_title": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "type": "string"
-    },
-    "section4_text": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "type": "text"
-    },
-    "section4_button": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
+      "pluginOptions": {},
       "type": "string"
     },
     "section5_title": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
+      "pluginOptions": {},
       "type": "string"
-    },
-    "section5_text": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "type": "text"
     },
     "section6_title": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "type": "string"
-    },
-    "section6_button": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "type": "string"
-    },
-    "section7_title": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "type": "string"
-    },
-    "section7_text": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "type": "string"
-    },
-    "section7_email_placeholder": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
+      "pluginOptions": {},
       "type": "string"
     },
     "section1_title": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
+      "pluginOptions": {},
       "type": "string"
     },
-    "section5_image": {
+    "section2_title_en": {
+      "type": "string"
+    },
+    "section3_title_en": {
+      "type": "string"
+    },
+    "section1_title_en": {
+      "type": "string"
+    },
+    "section4_title_en": {
+      "type": "string"
+    },
+    "section4_content": {
+      "type": "richtext"
+    },
+    "section4_content_en": {
+      "type": "richtext"
+    },
+    "section4_link": {
       "type": "component",
       "repeatable": false,
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "component": "global.media"
+      "component": "global.link"
+    },
+    "section5_title_en": {
+      "type": "string"
+    },
+    "section5_content": {
+      "type": "richtext"
+    },
+    "section5_content_en": {
+      "type": "richtext"
+    },
+    "section6_title_en": {
+      "type": "string"
+    },
+    "section6_link": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.link"
+    },
+    "section5_image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "section2_companies": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::aanbieder.aanbieder"
+    },
+    "section2_companies_en": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::aanbieder.aanbieder"
+    },
+    "section3_themes": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::thema.thema"
     }
   }
 }

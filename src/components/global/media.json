@@ -6,11 +6,6 @@
   },
   "options": {},
   "attributes": {
-    "alt": {
-      "type": "string",
-      "required": true,
-      "maxLength": 60
-    },
     "image": {
       "type": "media",
       "multiple": false,
@@ -18,6 +13,15 @@
       "allowedTypes": [
         "images"
       ]
+    },
+    "url": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "title_en": {
+      "type": "string"
     }
   }
 }

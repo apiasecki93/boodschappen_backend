@@ -6,10 +6,10 @@
   },
   "options": {},
   "attributes": {
-    "en": {
+    "text": {
       "type": "text"
     },
-    "nl": {
+    "text_en": {
       "type": "text"
     }
   }

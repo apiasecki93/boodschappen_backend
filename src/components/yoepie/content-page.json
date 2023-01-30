@@ -1,0 +1,38 @@
+{
+  "collectionName": "components_global_content_pages",
+  "info": {
+    "displayName": "ContentPage",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "section1_links": {
+      "type": "component",
+      "repeatable": true,
+      "component": "global.link"
+    },
+    "section2_image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "section1_content": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.localized-rich-text"
+    },
+    "section2_title": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.localized-title"
+    },
+    "section2_content": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.localized-rich-text"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_global_localized_rich_texts",
+  "info": {
+    "displayName": "LocalizedRichText",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "richtext"
+    },
+    "text_en": {
+      "type": "richtext"
+    }
+  }
+}
