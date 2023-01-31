@@ -15,6 +15,15 @@
     "title": {
       "type": "string"
     },
+    "title_en": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "description_en": {
+      "type": "text"
+    },
     "price": {
       "type": "decimal"
     },
@@ -46,15 +55,6 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::thema.thema"
-    },
-    "title_en": {
-      "type": "string"
-    },
-    "description": {
-      "type": "text"
-    },
-    "description_en": {
-      "type": "text"
     }
   }
 }

@@ -35,6 +35,9 @@
     "description": {
       "type": "text"
     },
+    "description_en": {
+      "type": "text"
+    },
     "openinghours": {
       "type": "component",
       "repeatable": false,
@@ -66,9 +69,6 @@
       "relation": "oneToMany",
       "target": "api::activity.activity",
       "mappedBy": "company"
-    },
-    "description_en": {
-      "type": "text"
     },
     "email": {
       "type": "string"
