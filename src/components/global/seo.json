@@ -27,10 +27,6 @@
       "default": true,
       "required": true
     },
-    "url": {
-      "type": "string",
-      "required": false
-    },
     "title_en": {
       "type": "string",
       "required": true,
@@ -40,9 +36,6 @@
       "type": "text"
     },
     "keywords_en": {
-      "type": "string"
-    },
-    "url_en": {
       "type": "string"
     }
   }
