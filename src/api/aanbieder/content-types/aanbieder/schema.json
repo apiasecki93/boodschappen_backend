@@ -93,6 +93,10 @@
       "type": "component",
       "repeatable": false,
       "component": "global.coordinates"
+    },
+    "worksOnSite": {
+      "type": "boolean",
+      "default": false
     }
   }
 }
