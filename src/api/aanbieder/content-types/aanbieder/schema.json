@@ -32,12 +32,6 @@
     "telephone": {
       "type": "string"
     },
-    "description": {
-      "type": "text"
-    },
-    "description_en": {
-      "type": "text"
-    },
     "openinghours": {
       "type": "component",
       "repeatable": false,
@@ -63,12 +57,6 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::paymentmethod.paymentmethod"
-    },
-    "activities": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::activity.activity",
-      "mappedBy": "company"
     },
     "email": {
       "type": "string"
@@ -97,6 +85,18 @@
     "worksOnSite": {
       "type": "boolean",
       "default": false
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "description_en": {
+      "type": "richtext"
+    },
+    "activities": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::activity.activity",
+      "inversedBy": "companies"
     }
   }
 }

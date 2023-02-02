@@ -18,12 +18,6 @@
     "title_en": {
       "type": "string"
     },
-    "description": {
-      "type": "text"
-    },
-    "description_en": {
-      "type": "text"
-    },
     "price": {
       "type": "decimal"
     },
@@ -45,9 +39,9 @@
       "repeatable": false,
       "component": "global.number-range"
     },
-    "company": {
+    "companies": {
       "type": "relation",
-      "relation": "manyToOne",
+      "relation": "manyToMany",
       "target": "api::aanbieder.aanbieder",
       "inversedBy": "activities"
     },
@@ -55,6 +49,12 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::thema.thema"
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "description_en": {
+      "type": "richtext"
     }
   }
 }
