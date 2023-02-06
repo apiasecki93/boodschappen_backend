@@ -96,7 +96,15 @@
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::activity.activity",
-      "inversedBy": "companies"
+      "mappedBy": "companies"
+    },
+    "short_description": {
+      "type": "text",
+      "maxLength": 200
+    },
+    "short_description_en": {
+      "type": "text",
+      "maxLength": 200
     }
   }
 }
