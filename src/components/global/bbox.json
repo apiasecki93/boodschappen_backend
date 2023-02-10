@@ -1,20 +1,21 @@
 {
   "collectionName": "components_global_bboxes",
   "info": {
-    "displayName": "Bbox"
+    "displayName": "Bbox",
+    "description": ""
   },
   "options": {},
   "attributes": {
-    "left": {
+    "long_min": {
       "type": "float"
     },
-    "right": {
+    "long_max": {
       "type": "float"
     },
-    "top": {
+    "lat_min": {
       "type": "float"
     },
-    "bottom": {
+    "lat_max": {
       "type": "float"
     }
   }
