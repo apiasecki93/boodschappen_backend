@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_global_bboxes",
+  "info": {
+    "displayName": "Bbox"
+  },
+  "options": {},
+  "attributes": {
+    "left": {
+      "type": "float"
+    },
+    "right": {
+      "type": "float"
+    },
+    "top": {
+      "type": "float"
+    },
+    "bottom": {
+      "type": "float"
+    }
+  }
+}

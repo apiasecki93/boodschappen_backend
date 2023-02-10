@@ -82,7 +82,7 @@
       "repeatable": false,
       "component": "global.coordinates"
     },
-    "worksOnSite": {
+    "flexible_location": {
       "type": "boolean",
       "default": false
     },
@@ -105,6 +105,12 @@
     "short_description_en": {
       "type": "text",
       "maxLength": 200
+    },
+    "bbox": {
+      "displayName": "Bbox",
+      "type": "component",
+      "repeatable": false,
+      "component": "global.bbox"
     }
   }
 }
