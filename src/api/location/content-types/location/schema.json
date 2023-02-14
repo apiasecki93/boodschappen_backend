@@ -15,17 +15,16 @@
     "title": {
       "type": "string"
     },
-    "coordinates": {
-      "type": "component",
-      "repeatable": false,
-      "component": "global.coordinates"
-    },
     "thumbnail": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
+    },
+    "query": {
+      "type": "text"
     }
   }
 }
