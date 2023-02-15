@@ -111,6 +111,9 @@
       "type": "component",
       "repeatable": false,
       "component": "global.bbox"
+    },
+    "location_radius": {
+      "type": "integer"
     }
   }
 }
