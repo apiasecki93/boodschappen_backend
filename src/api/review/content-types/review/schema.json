@@ -4,7 +4,8 @@
   "info": {
     "singularName": "review",
     "pluralName": "reviews",
-    "displayName": "Review"
+    "displayName": "Review",
+    "description": ""
   },
   "options": {
     "draftAndPublish": false
@@ -12,10 +13,12 @@
   "pluginOptions": {},
   "attributes": {
     "description": {
-      "type": "text"
+      "type": "text",
+      "required": true
     },
     "score": {
-      "type": "integer"
+      "type": "integer",
+      "required": true
     },
     "user": {
       "type": "relation",
@@ -28,6 +31,14 @@
       "relation": "manyToOne",
       "target": "api::aanbieder.aanbieder",
       "inversedBy": "reviews"
+    },
+    "Anonymous": {
+      "type": "boolean",
+      "default": false
+    },
+    "title": {
+      "type": "string",
+      "required": true
     }
   }
 }
