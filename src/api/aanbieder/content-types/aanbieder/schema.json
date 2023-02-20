@@ -114,6 +114,12 @@
     },
     "location_radius": {
       "type": "integer"
+    },
+    "reviews": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::review.review",
+      "mappedBy": "company"
     }
   }
 }
