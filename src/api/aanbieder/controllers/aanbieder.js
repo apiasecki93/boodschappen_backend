@@ -16,8 +16,7 @@ module.exports = createCoreController('api::aanbieder.aanbieder', {
         const entry = await strapi.db.query('api::aanbieder.aanbieder').findOne({ where: { user: id }})
         if (entry) return ctx.badRequest('Company already exists for user. Edit existing company instead', { ok: false });
         const response = await super.create(ctx);
-        const updatedResponse = await strapi.entityService
-            .update('api::aanbieder.aanbieder', response.data.id, { data: { user: id } })
+        const updatedResponse = await strapi.entityService.update('api::aanbieder.aanbieder', response.data.id, { data: { user: id } });
         return updatedResponse;
     },
     

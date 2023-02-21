@@ -32,10 +32,6 @@
       "target": "api::aanbieder.aanbieder",
       "inversedBy": "reviews"
     },
-    "Anonymous": {
-      "type": "boolean",
-      "default": false
-    },
     "title": {
       "type": "string",
       "required": true
