@@ -120,6 +120,9 @@
       "relation": "oneToMany",
       "target": "api::review.review",
       "mappedBy": "company"
+    },
+    "rating": {
+      "type": "float"
     }
   }
 }
