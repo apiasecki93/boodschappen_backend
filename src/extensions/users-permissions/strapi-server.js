@@ -60,6 +60,25 @@ module.exports = (plugin) => {
   };
 
 
+  //ADD FAVORITE CONTROLLER
+  plugin.controllers.user.UpdateFavorites = async (ctx) => {
+    const { id: userId } = ctx.state.user; 
+    if (!userId) return ctx.unauthorized();
+
+    const newFavorites = ctx.request.body?.data?.favorites
+    if(newFavorites && Array.isArray(newFavorites)){
+      ctx.params = { id: userId };
+      ctx.request.body = { 
+          favorites : newFavorites
+      };
+  
+      return await strapi.plugins['users-permissions'].controller('user').update(ctx);
+    }
+
+    return ctx.badRequest('Favorites needs to be an array', { ok: false });
+  };
+
+
   // Add the custom Update me route
   plugin.routes['content-api'].routes.unshift({
     method: 'PUT',
@@ -75,6 +94,16 @@ module.exports = (plugin) => {
     method: 'POST',
     path: '/users/confirm',
     handler: 'user.confirmMe',
+    config: {
+      prefix: ''
+    }
+  });
+
+  // Add the custom Confirm me route
+  plugin.routes['content-api'].routes.unshift({
+    method: 'PUT',
+    path: '/users/me/favorites',
+    handler: 'user.UpdateFavorites',
     config: {
       prefix: ''
     }
