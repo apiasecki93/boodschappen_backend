@@ -55,6 +55,9 @@
     },
     "description_en": {
       "type": "richtext"
+    },
+    "isPricePerPerson": {
+      "type": "boolean"
     }
   }
 }
