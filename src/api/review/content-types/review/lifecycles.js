@@ -16,7 +16,8 @@ module.exports = {
                 rates += review.score;
             });
             const average = rates / company.reviews.length;
-            const newCompanyRate = Math.round(average * 10) / 10;
+            let newCompanyRate = Math.round(average * 10) / 10;
+            if(isNaN(newCompanyRate)) newCompanyRate = 0;
             await strapi.entityService.update('api::aanbieder.aanbieder', company.id, { 
                 data: { rating: newCompanyRate } 
             });
