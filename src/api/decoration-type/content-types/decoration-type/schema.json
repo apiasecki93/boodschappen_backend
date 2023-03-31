@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "decoration_types",
+  "info": {
+    "singularName": "decoration-type",
+    "pluralName": "decoration-types",
+    "displayName": "DecorationType"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "title_en": {
+      "type": "string"
+    },
+    "thumbnail": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false
+    }
+  }
+}

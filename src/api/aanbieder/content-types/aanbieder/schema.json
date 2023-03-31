@@ -123,6 +123,22 @@
     },
     "rating": {
       "type": "float"
+    },
+    "decorations": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::decoration.decoration",
+      "mappedBy": "companies"
+    },
+    "treats": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::treat.treat",
+      "mappedBy": "companies"
+    },
+    "external_link_counter": {
+      "type": "integer",
+      "default": 0
     }
   }
 }

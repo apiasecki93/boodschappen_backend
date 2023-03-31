@@ -1,0 +1,45 @@
+{
+  "kind": "collectionType",
+  "collectionName": "treats",
+  "info": {
+    "singularName": "treat",
+    "pluralName": "treats",
+    "displayName": "Treat",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "title_en": {
+      "type": "string"
+    },
+    "price": {
+      "type": "decimal"
+    },
+    "website_url": {
+      "type": "string"
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "description_en": {
+      "type": "richtext"
+    },
+    "companies": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::aanbieder.aanbieder",
+      "inversedBy": "treats"
+    },
+    "treat_types": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::treat-type.treat-type"
+    }
+  }
+}

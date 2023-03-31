@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "treat_types",
+  "info": {
+    "singularName": "treat-type",
+    "pluralName": "treat-types",
+    "displayName": "TreatType"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "title_en": {
+      "type": "string"
+    },
+    "thumbnail": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false
+    }
+  }
+}
