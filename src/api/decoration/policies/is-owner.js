@@ -4,16 +4,16 @@
  */
 module.exports = async (policyCtx, config, {strapi}) => {
   const {id : userId} = policyCtx.state.user;
-  const {id : treatId} = policyCtx.request.params;
+  const {id : decorationId} = policyCtx.request.params;
 
-  const [ treat ] = await strapi.entityService.findMany('api::treat.treat', {
-    filters: { id: treatId },
+  const [ decoration ] = await strapi.entityService.findMany('api::decoration.decoration', {
+    filters: { id: decorationId },
     populate: { companies : true },
   })
  
-  if(!treat?.companies) return false;
+  if(!decoration?.companies) return false;
 
-  const companyIds = treat.companies.map(company => company.id);
+  const companyIds = decoration.companies.map(company => company.id);
   const [ company ] = await strapi.entityService.findMany('api::aanbieder.aanbieder', {
     filters: {
       id: { $in : companyIds },
