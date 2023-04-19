@@ -104,6 +104,12 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::thema.thema"
+    },
+    "activity_count": {
+      "type": "integer"
+    },
+    "company_count": {
+      "type": "integer"
     }
   }
 }
