@@ -4,7 +4,7 @@
   "info": {
     "singularName": "aanbieder",
     "pluralName": "aanbieders",
-    "displayName": "Company",
+    "displayName": "Aanbieder",
     "description": ""
   },
   "options": {
@@ -12,30 +12,14 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "name": {
+    "naam": {
       "type": "string",
-      "required": false,
-      "unique": false
+      "required": true,
+      "unique": true
     },
-    "address": {
-      "type": "string"
-    },
-    "website_url": {
-      "type": "string"
-    },
-    "zipcode": {
-      "type": "string"
-    },
-    "city": {
-      "type": "string"
-    },
-    "telephone": {
-      "type": "string"
-    },
-    "openinghours": {
-      "type": "component",
-      "repeatable": false,
-      "component": "global.openinghours"
+    "slug": {
+      "type": "uid",
+      "required": true
     },
     "user": {
       "type": "relation",
@@ -43,23 +27,21 @@
       "target": "plugin::users-permissions.user",
       "inversedBy": "company"
     },
-    "accessibilities": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::accessibility.accessibility"
+    "adres": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.address"
     },
-    "languages": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::language.language"
+    "contact": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.contact"
     },
-    "paymentmethods": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::paymentmethod.paymentmethod"
+    "beschrijving": {
+      "type": "richtext"
     },
-    "email": {
-      "type": "string"
+    "beschrijving_en": {
+      "type": "richtext"
     },
     "thumbnail": {
       "type": "media",
@@ -69,7 +51,7 @@
         "images"
       ]
     },
-    "images": {
+    "media": {
       "type": "media",
       "multiple": true,
       "required": false,
@@ -77,68 +59,35 @@
         "images"
       ]
     },
-    "coordinates": {
-      "type": "component",
-      "repeatable": false,
-      "component": "global.coordinates"
-    },
-    "flexible_location": {
-      "type": "boolean",
-      "default": false
-    },
-    "description": {
-      "type": "richtext"
-    },
-    "description_en": {
-      "type": "richtext"
-    },
-    "activities": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::activity.activity",
-      "mappedBy": "companies"
-    },
-    "short_description": {
-      "type": "text",
-      "maxLength": 200
-    },
-    "short_description_en": {
-      "type": "text",
-      "maxLength": 200
-    },
-    "bbox": {
-      "displayName": "Bbox",
-      "type": "component",
-      "repeatable": false,
-      "component": "global.bbox"
-    },
-    "location_radius": {
-      "type": "integer"
-    },
     "reviews": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::review.review",
       "mappedBy": "company"
     },
-    "rating": {
+    "review_score": {
       "type": "float"
     },
-    "decorations": {
+    "aanbod": {
       "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::decoration.decoration",
-      "mappedBy": "companies"
+      "relation": "oneToMany",
+      "target": "api::aanbod.aanbod",
+      "mappedBy": "aanbieder"
     },
-    "treats": {
+    "openingstijden": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.openinghours"
+    },
+    "aanbieder_types": {
       "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::treat.treat",
-      "mappedBy": "companies"
+      "relation": "oneToMany",
+      "target": "api::aanbieder-type.aanbieder-type"
     },
-    "external_link_counter": {
-      "type": "integer",
-      "default": 0
+    "coordinaten": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.coordinates"
     }
   }
 }

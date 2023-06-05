@@ -1,0 +1,32 @@
+{
+  "kind": "singleType",
+  "collectionName": "homepaginas",
+  "info": {
+    "singularName": "homepagina",
+    "pluralName": "homepaginas",
+    "displayName": "Homepagina"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "sectie1_titel": {
+      "type": "string"
+    },
+    "sectie1_titel_en": {
+      "type": "string"
+    },
+    "sectie1_text": {
+      "type": "richtext"
+    },
+    "sectie1_text_en": {
+      "type": "richtext"
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "global.seo"
+    }
+  }
+}

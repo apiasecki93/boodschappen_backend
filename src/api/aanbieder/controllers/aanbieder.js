@@ -45,11 +45,11 @@ module.exports = createCoreController('api::aanbieder.aanbieder', {
 
         const entry = await strapi.db.query('api::aanbieder.aanbieder').findOne({ 
             where: { user: userId },
-            populate: { images: true },
+            populate: { media: true },
         });
         if (!entry) return ctx.badRequest('Could not find company.', { ok: false });
 
-        const imageIdIsValid = entry.images.filter((image) => image.id == imageId).length? true : false;
+        const imageIdIsValid = entry.media.filter((image) => image.id == imageId).length? true : false;
         if (!imageIdIsValid) return ctx.badRequest('Could not find image for company.', { ok: false });
         
         const imageEntry = await strapi.db.query('plugin::upload.file').delete({ where: { id: imageId }});

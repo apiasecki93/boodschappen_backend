@@ -102,6 +102,13 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::aanbieder.aanbieder"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "AANBIEDER",
+        "CONSUMENT"
+      ]
     }
   }
 }

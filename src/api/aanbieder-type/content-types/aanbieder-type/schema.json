@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "aanbieder_types",
+  "info": {
+    "singularName": "aanbieder-type",
+    "pluralName": "aanbieder-types",
+    "displayName": "AanbiederType"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "titel": {
+      "type": "string"
+    },
+    "titel_en": {
+      "type": "string"
+    },
+    "thumbnail": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false
+    }
+  }
+}

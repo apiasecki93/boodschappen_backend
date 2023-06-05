@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "landingspaginas",
+  "info": {
+    "singularName": "landingspagina",
+    "pluralName": "landingspaginas",
+    "displayName": "Landingspagina",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "titel": {
+      "type": "string",
+      "required": true
+    },
+    "titel_en": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "titel",
+      "required": true
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": true,
+      "component": "global.seo"
+    }
+  }
+}

@@ -1,18 +1,18 @@
 {
   "collectionName": "components_global_openinghour",
   "info": {
-    "displayName": "TimeRange",
+    "displayName": "Openingstijd",
     "description": ""
   },
   "options": {},
   "attributes": {
-    "start": {
+    "starttijd": {
       "type": "time"
     },
-    "end": {
+    "eindtijd": {
       "type": "time"
     },
-    "closed": {
+    "isGesloten": {
       "type": "boolean",
       "default": false
     }

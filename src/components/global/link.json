@@ -7,16 +7,16 @@
   },
   "options": {},
   "attributes": {
+    "titel": {
+      "type": "string",
+      "required": true
+    },
+    "titel_en": {
+      "type": "string"
+    },
     "url": {
       "type": "string",
       "required": true
-    },
-    "title": {
-      "type": "string",
-      "required": true
-    },
-    "title_en": {
-      "type": "string"
     }
   }
 }

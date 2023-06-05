@@ -1,21 +1,21 @@
 {
   "collectionName": "components_global_bboxes",
   "info": {
-    "displayName": "Bbox",
+    "displayName": "CoordinatenReeks",
     "description": ""
   },
   "options": {},
   "attributes": {
-    "long_min": {
+    "longitude_min": {
       "type": "float"
     },
-    "long_max": {
+    "longitude_max": {
       "type": "float"
     },
-    "lat_min": {
+    "latitude_min": {
       "type": "float"
     },
-    "lat_max": {
+    "latitude_max": {
       "type": "float"
     }
   }

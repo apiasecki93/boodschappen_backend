@@ -1,0 +1,55 @@
+{
+  "kind": "collectionType",
+  "collectionName": "aanbods",
+  "info": {
+    "singularName": "aanbod",
+    "pluralName": "aanbods",
+    "displayName": "Aanbod",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "titel": {
+      "type": "string"
+    },
+    "titel_en": {
+      "type": "string"
+    },
+    "aanbieder": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::aanbieder.aanbieder",
+      "inversedBy": "aanbod"
+    },
+    "beschrijving": {
+      "type": "richtext"
+    },
+    "beschrijving_en": {
+      "type": "richtext"
+    },
+    "thumbnail": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "prijs": {
+      "type": "decimal"
+    },
+    "aanbod_types": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::aanbod-type.aanbod-type"
+    },
+    "reviews": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::review.review"
+    }
+  }
+}

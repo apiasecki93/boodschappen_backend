@@ -1,42 +1,42 @@
 {
   "collectionName": "components_global_openinghours",
   "info": {
-    "displayName": "OpeningHours",
+    "displayName": "Openingstijden",
     "description": ""
   },
   "options": {},
   "attributes": {
-    "Monday": {
+    "maandag": {
       "type": "component",
       "repeatable": false,
       "component": "global.openinghour"
     },
-    "Tuesday": {
+    "dinsdag": {
       "type": "component",
       "repeatable": false,
       "component": "global.openinghour"
     },
-    "Wednesday": {
+    "woensdag": {
       "type": "component",
       "repeatable": false,
       "component": "global.openinghour"
     },
-    "Thursday": {
+    "donderdag": {
       "type": "component",
       "repeatable": false,
       "component": "global.openinghour"
     },
-    "Friday": {
+    "vrijdag": {
       "type": "component",
       "repeatable": false,
       "component": "global.openinghour"
     },
-    "Saturday": {
+    "zaterdag": {
       "type": "component",
       "repeatable": false,
       "component": "global.openinghour"
     },
-    "Sunday": {
+    "zondag": {
       "type": "component",
       "repeatable": false,
       "component": "global.openinghour"

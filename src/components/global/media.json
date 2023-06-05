@@ -1,27 +1,27 @@
 {
   "collectionName": "components_global_media",
   "info": {
-    "displayName": "Image",
+    "displayName": "FotoLink",
     "description": ""
   },
   "options": {},
   "attributes": {
-    "image": {
+    "titel": {
+      "type": "string"
+    },
+    "titel_en": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    },
+    "foto": {
       "type": "media",
       "multiple": false,
       "required": true,
       "allowedTypes": [
         "images"
       ]
-    },
-    "url": {
-      "type": "string"
-    },
-    "title": {
-      "type": "string"
-    },
-    "title_en": {
-      "type": "string"
     }
   }
 }

@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_global_addresses",
+  "info": {
+    "displayName": "Adres",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "postcode": {
+      "type": "string"
+    },
+    "huisnummer": {
+      "type": "string"
+    },
+    "straat": {
+      "type": "string"
+    },
+    "stad": {
+      "type": "string"
+    }
+  }
+}

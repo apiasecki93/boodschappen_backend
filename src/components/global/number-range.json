@@ -1,15 +1,15 @@
 {
   "collectionName": "components_global_number_ranges",
   "info": {
-    "displayName": "NumberRange",
+    "displayName": "Nummerbereik",
     "description": ""
   },
   "options": {},
   "attributes": {
-    "start": {
+    "min": {
       "type": "decimal"
     },
-    "end": {
+    "max": {
       "type": "decimal"
     }
   }

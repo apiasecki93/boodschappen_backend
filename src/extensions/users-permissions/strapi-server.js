@@ -2,9 +2,6 @@ const _ = require('lodash');
 const { parseMultipartData} = require('@strapi/utils');
 
 module.exports = (plugin) => {
-//   const getUserController = () => {
-//     return strapi.plugins['users-permissions'].controller('user');
-//   };
 
   //UPDATE ME CONTROLLER
   plugin.controllers.user.updateMe = async (ctx) => {
@@ -28,7 +25,6 @@ module.exports = (plugin) => {
         if(result){
           return await strapi.plugins['users-permissions'].controller('user').update(ctx);
         }
-        
     }
 
     // Pick only specific fields for security
