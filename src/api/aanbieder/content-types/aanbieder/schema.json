@@ -79,11 +79,6 @@
       "repeatable": false,
       "component": "global.openinghours"
     },
-    "aanbieder_types": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::aanbieder-type.aanbieder-type"
-    },
     "coordinaten": {
       "type": "component",
       "repeatable": false,

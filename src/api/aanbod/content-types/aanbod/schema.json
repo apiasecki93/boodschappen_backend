@@ -41,11 +41,6 @@
     "prijs": {
       "type": "decimal"
     },
-    "aanbod_types": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::aanbod-type.aanbod-type"
-    },
     "reviews": {
       "type": "relation",
       "relation": "oneToMany",
