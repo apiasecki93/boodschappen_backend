@@ -11,40 +11,5 @@
     "draftAndPublish": false
   },
   "pluginOptions": {},
-  "attributes": {
-    "titel": {
-      "type": "string"
-    },
-    "titel_en": {
-      "type": "string"
-    },
-    "aanbieder": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::aanbieder.aanbieder",
-      "inversedBy": "aanbod"
-    },
-    "beschrijving": {
-      "type": "richtext"
-    },
-    "beschrijving_en": {
-      "type": "richtext"
-    },
-    "thumbnail": {
-      "type": "media",
-      "multiple": false,
-      "required": false,
-      "allowedTypes": [
-        "images"
-      ]
-    },
-    "prijs": {
-      "type": "decimal"
-    },
-    "reviews": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::review.review"
-    }
-  }
+  "attributes": {}
 }

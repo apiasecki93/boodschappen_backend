@@ -26,30 +26,10 @@
       "type": "string",
       "default": "comma separated values"
     },
-    "beschrijving": {
-      "type": "text",
-      "required": false,
-      "maxLength": 155,
-      "default": "Try to place essential keywords (2-3)."
-    },
-    "beschrijving_en": {
-      "type": "text",
-      "required": false,
-      "maxLength": 155,
-      "default": "Try to place essential keywords (2-3)."
-    },
     "indexing": {
       "type": "boolean",
       "default": true,
       "required": true
-    },
-    "metaImage": {
-      "type": "media",
-      "multiple": false,
-      "required": false,
-      "allowedTypes": [
-        "images"
-      ]
     }
   }
 }

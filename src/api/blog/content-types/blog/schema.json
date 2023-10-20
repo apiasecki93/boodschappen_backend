@@ -11,40 +11,5 @@
     "draftAndPublish": true
   },
   "pluginOptions": {},
-  "attributes": {
-    "title": {
-      "type": "string"
-    },
-    "content_en": {
-      "type": "richtext"
-    },
-    "content": {
-      "type": "richtext"
-    },
-    "related_blogs": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::blog.blog"
-    },
-    "slug": {
-      "type": "uid",
-      "targetField": "title"
-    },
-    "title_en": {
-      "type": "string"
-    },
-    "SEO": {
-      "type": "component",
-      "repeatable": false,
-      "component": "global.seo"
-    },
-    "image": {
-      "type": "media",
-      "multiple": false,
-      "required": false,
-      "allowedTypes": [
-        "images"
-      ]
-    }
-  }
+  "attributes": {}
 }

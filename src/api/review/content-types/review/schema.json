@@ -11,30 +11,5 @@
     "draftAndPublish": false
   },
   "pluginOptions": {},
-  "attributes": {
-    "description": {
-      "type": "text",
-      "required": true
-    },
-    "score": {
-      "type": "integer",
-      "required": true
-    },
-    "user": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "plugin::users-permissions.user",
-      "inversedBy": "reviews"
-    },
-    "company": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::aanbieder.aanbieder",
-      "inversedBy": "reviews"
-    },
-    "title": {
-      "type": "string",
-      "required": true
-    }
-  }
+  "attributes": {}
 }
