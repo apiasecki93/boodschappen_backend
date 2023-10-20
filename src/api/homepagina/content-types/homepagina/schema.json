@@ -22,11 +22,6 @@
     },
     "sectie1_text_en": {
       "type": "richtext"
-    },
-    "seo": {
-      "type": "component",
-      "repeatable": false,
-      "component": "global.seo"
     }
   }
 }
