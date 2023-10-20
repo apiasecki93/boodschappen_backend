@@ -76,27 +76,6 @@
     },
     "lastname": {
       "type": "string"
-    },
-    "authorStatus": {
-      "type": "enumeration",
-      "enum": [
-        "None",
-        "Requested confirmation",
-        "Confirmed"
-      ],
-      "default": "None"
-    },
-    "favorites": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::aanbieder.aanbieder"
-    },
-    "type": {
-      "type": "enumeration",
-      "enum": [
-        "AANBIEDER",
-        "CONSUMENT"
-      ]
     }
   }
 }
