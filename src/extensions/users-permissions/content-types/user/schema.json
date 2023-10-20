@@ -76,6 +76,11 @@
     },
     "lastname": {
       "type": "string"
+    },
+    "favorites": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::product.product"
     }
   }
 }

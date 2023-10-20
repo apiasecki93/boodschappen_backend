@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_global_tests",
+  "info": {
+    "displayName": "test"
+  },
+  "options": {},
+  "attributes": {
+    "users": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "plugin::users-permissions.user"
+    },
+    "quantity": {
+      "type": "integer"
+    }
+  }
+}

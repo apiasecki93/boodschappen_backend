@@ -1,0 +1,26 @@
+{
+  "kind": "collectionType",
+  "collectionName": "shopping_list_products",
+  "info": {
+    "singularName": "shopping-list-product",
+    "pluralName": "shopping-list-products",
+    "displayName": "ShoppingListProduct",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "product": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::product.product"
+    },
+    "test": {
+      "type": "component",
+      "repeatable": true,
+      "component": "global.test"
+    }
+  }
+}
