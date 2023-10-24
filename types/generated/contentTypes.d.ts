@@ -415,14 +415,19 @@ export interface ApiProductProduct extends Schema.CollectionType {
     image: Attribute.Media;
     count: Attribute.Integer;
     like: Attribute.Boolean & Attribute.DefaultTo<false>;
-    creator: Attribute.Relation<
-      'api::product.product',
-      'oneToOne',
-      'plugin::users-permissions.user'
-    >;
     category: Attribute.String &
       Attribute.Required &
       Attribute.DefaultTo<'no-category-yet'>;
+    creator: Attribute.Relation<
+      'api::product.product',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    user: Attribute.Relation<
+      'api::product.product',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -703,7 +708,6 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
   options: {
     draftAndPublish: false;
-    timestamps: true;
   };
   attributes: {
     username: Attribute.String &
@@ -735,14 +739,15 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
     thumbnail: Attribute.Media;
     firstname: Attribute.String;
     lastname: Attribute.String;
-    favorites: Attribute.Relation<
+    is_veryfied: Attribute.Boolean & Attribute.DefaultTo<false>;
+    products: Attribute.Relation<
       'plugin::users-permissions.user',
       'oneToMany',
       'api::product.product'
     >;
-    product: Attribute.Relation<
+    favorites: Attribute.Relation<
       'plugin::users-permissions.user',
-      'oneToOne',
+      'oneToMany',
       'api::product.product'
     >;
     createdAt: Attribute.DateTime;

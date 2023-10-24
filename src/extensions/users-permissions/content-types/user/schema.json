@@ -9,8 +9,7 @@
     "displayName": "User"
   },
   "options": {
-    "draftAndPublish": false,
-    "timestamps": true
+    "draftAndPublish": false
   },
   "attributes": {
     "username": {
@@ -77,16 +76,21 @@
     "lastname": {
       "type": "string"
     },
+    "is_veryfied": {
+      "type": "boolean",
+      "default": false
+    },
+    "products": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::product.product",
+      "mappedBy": "creator"
+    },
     "favorites": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::product.product"
-    },
-    "product": {
-      "type": "relation",
-      "relation": "oneToOne",
       "target": "api::product.product",
-      "mappedBy": "creator"
+      "mappedBy": "user"
     }
   }
 }

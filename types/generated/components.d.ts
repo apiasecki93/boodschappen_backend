@@ -4,6 +4,7 @@ export interface GlobalTest extends Schema.Component {
   collectionName: 'components_global_tests';
   info: {
     displayName: 'test';
+    description: '';
   };
   attributes: {
     users: Attribute.Relation<

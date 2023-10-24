@@ -41,16 +41,22 @@
       "type": "boolean",
       "default": false
     },
-    "creator": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "plugin::users-permissions.user",
-      "inversedBy": "product"
-    },
     "category": {
       "type": "string",
       "default": "no-category-yet",
       "required": true
+    },
+    "creator": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "products"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "favorites"
     }
   }
 }
