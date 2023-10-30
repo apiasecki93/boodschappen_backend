@@ -11,16 +11,5 @@
     "draftAndPublish": true
   },
   "pluginOptions": {},
-  "attributes": {
-    "product": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::product.product"
-    },
-    "test": {
-      "type": "component",
-      "repeatable": true,
-      "component": "global.test"
-    }
-  }
+  "attributes": {}
 }

@@ -615,16 +615,16 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'manyToOne',
       'plugin::users-permissions.role'
     >;
+    favorites: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'manyToMany',
+      'api::product.product'
+    >;
     thumbnail: Attribute.Media;
     firstname: Attribute.String;
     lastname: Attribute.String;
-    is_veryfied: Attribute.Boolean & Attribute.DefaultTo<false>;
+    is_verified: Attribute.Boolean & Attribute.DefaultTo<false>;
     products: Attribute.Relation<
-      'plugin::users-permissions.user',
-      'oneToMany',
-      'api::product.product'
-    >;
-    favorites: Attribute.Relation<
       'plugin::users-permissions.user',
       'oneToMany',
       'api::product.product'
@@ -742,17 +742,17 @@ export interface ApiProductProduct extends Schema.CollectionType {
       Attribute.Required &
       Attribute.DefaultTo<'no-description-yet'>;
     image: Attribute.Media;
-    count: Attribute.Integer;
+    count: Attribute.Integer & Attribute.DefaultTo<0>;
     like: Attribute.Boolean & Attribute.DefaultTo<false>;
     category: Attribute.String &
       Attribute.Required &
       Attribute.DefaultTo<'no-category-yet'>;
-    creator: Attribute.Relation<
+    users: Attribute.Relation<
       'api::product.product',
-      'manyToOne',
+      'manyToMany',
       'plugin::users-permissions.user'
     >;
-    user: Attribute.Relation<
+    creator: Attribute.Relation<
       'api::product.product',
       'manyToOne',
       'plugin::users-permissions.user'
@@ -788,12 +788,6 @@ export interface ApiShoppingListProductShoppingListProduct
     draftAndPublish: true;
   };
   attributes: {
-    product: Attribute.Relation<
-      'api::shopping-list-product.shopping-list-product',
-      'oneToOne',
-      'api::product.product'
-    >;
-    test: Attribute.Component<'global.test', true>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

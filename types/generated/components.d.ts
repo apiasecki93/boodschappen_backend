@@ -1,25 +1,24 @@
 import type { Schema, Attribute } from '@strapi/strapi';
 
-export interface GlobalTest extends Schema.Component {
-  collectionName: 'components_global_tests';
+export interface UsersTest extends Schema.Component {
+  collectionName: 'components_users_tests';
   info: {
     displayName: 'test';
-    description: '';
   };
   attributes: {
     users: Attribute.Relation<
-      'global.test',
+      'users.test',
       'oneToMany',
       'plugin::users-permissions.user'
     >;
-    quantity: Attribute.Integer;
+    quantity: Attribute.Integer & Attribute.DefaultTo<0>;
   };
 }
 
 declare module '@strapi/types' {
   export module Shared {
     export interface Components {
-      'global.test': GlobalTest;
+      'users.test': UsersTest;
     }
   }
 }

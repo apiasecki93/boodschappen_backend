@@ -1,8 +1,7 @@
 {
-  "collectionName": "components_global_tests",
+  "collectionName": "components_users_tests",
   "info": {
-    "displayName": "test",
-    "description": ""
+    "displayName": "test"
   },
   "options": {},
   "attributes": {
@@ -12,7 +11,8 @@
       "target": "plugin::users-permissions.user"
     },
     "quantity": {
-      "type": "integer"
+      "type": "integer",
+      "default": 0
     }
   }
 }

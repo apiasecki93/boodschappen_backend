@@ -62,6 +62,12 @@
       "inversedBy": "users",
       "configurable": false
     },
+    "favorites": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::product.product",
+      "mappedBy": "users"
+    },
     "thumbnail": {
       "type": "media",
       "multiple": false,
@@ -76,7 +82,7 @@
     "lastname": {
       "type": "string"
     },
-    "is_veryfied": {
+    "is_verified": {
       "type": "boolean",
       "default": false
     },
@@ -85,12 +91,6 @@
       "relation": "oneToMany",
       "target": "api::product.product",
       "mappedBy": "creator"
-    },
-    "favorites": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::product.product",
-      "mappedBy": "user"
     }
   }
 }
