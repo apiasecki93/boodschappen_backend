@@ -66,87 +66,92 @@ module.exports = (plugin) => {
   };
 
   //ADD FAVORITE CONTROLLER
-  plugin.controllers.user.UpdateFavorites = async (ctx) => {
-    const { id: userId } = ctx.state.user;
-    if (!userId) return ctx.unauthorized();
+  // plugin.controllers.user.UpdateFavorites = async (ctx) => {
+  //   const { id: userId } = ctx.state.user;
+  //   if (!userId) return ctx.unauthorized();
 
-    const newFavorites = ctx.request.body?.data?.favorites;
-    if (newFavorites && Array.isArray(newFavorites)) {
-      ctx.params = { id: userId };
-      ctx.request.body = {
-        favorites: newFavorites,
-      };
+  //   const newFavorites = ctx.request.body?.data?.favorites;
+  //   if (newFavorites && Array.isArray(newFavorites)) {
+  //     ctx.params = { id: userId };
+  //     ctx.request.body = {
+  //       favorites: newFavorites,
+  //     };
 
-      return await strapi.plugins["users-permissions"]
-        .controller("user")
-        .update(ctx);
-    }
+  //     return await strapi.plugins["users-permissions"]
+  //       .controller("user")
+  //       .update(ctx);
+  //   }
 
-    return ctx.badRequest("Favorites needs to be an array", { ok: false });
-  };
+  //   return ctx.badRequest("Favorites needs to be an array", { ok: false });
+  // };
 
-  plugin.controllers.user.toggleFavorite = async (ctx) => {
-    try {
-      const userId = ctx.state.user.id;
-      const { productId } = ctx.request.body;
+  // plugin.controllers.user.FavoritesUpdate = async (ctx) => {
+  //   try {
+  //     const userId = ctx.state.user.id;
+  //     const { productId } = ctx.request.body;
 
-      if (!productId) {
-        return ctx.badRequest("Product ID is missing");
-      }
+  //     console.log("userId:", userId);
+  //     console.log("productId:", productId);
 
-      // Fetch user and their favorites
-      const user = await strapi.entityService.findOne(
-        "plugin::users-permissions.user",
-        userId,
-        { populate: ["favorites"] }
-      );
+  //     if (!productId) {
+  //       return ctx.badRequest("Product ID is missing");
+  //     }
 
-      if (!user) {
-        return ctx.notFound("User not found");
-      }
+  //     const user = await strapi.db
+  //       .query("plugin::users-permissions.user")
+  //       .findOne({ where: { id: userId }, populate: ["favorites"] });
 
-      const alreadyFavorited = user.favorites.some(
-        (fav) => fav.id == productId
-      );
+  //     console.log("user:", user);
 
-      //  conosole all variables
-      console.log(user);
-      console.log(userId);
-      console.log(productId);
-      console.log(ctx.request.body);
-      console.log(alreadyFavorited);
+  //     if (!user) {
+  //       return ctx.notFound("User not found");
+  //     }
 
-      let updatedFavoritesIds;
-      if (alreadyFavorited) {
-        updatedFavoritesIds = user.favorites
-          .map((fav) => fav.id)
-          .filter((id) => id !== productId);
-      } else {
-        updatedFavoritesIds = [
-          ...user.favorites.map((fav) => fav.id),
-          productId,
-        ];
-      }
+  //     const alreadyFavorited = user.favorites.some(
+  //       (fav) => fav.id == productId
+  //     );
 
-      // Direct database update
-      await strapi.entityService.update(
-        { id: userId, model: "plugin::users-permissions.user" },
-        { favorites: updatedFavoritesIds }
-      );
+  //     console.log("alreadyFavorited:", alreadyFavorited);
 
-      // Fetch the updated user to return
-      const updatedUser = await strapi.entityService.findOne(
-        "plugin::users-permissions.user",
-        userId,
-        { populate: ["favorites"] }
-      );
+  //     let updatedFavoritesIds;
+  //     if (alreadyFavorited) {
+  //       updatedFavoritesIds = user.favorites.filter(
+  //         (fav) => fav.id != productId
+  //       );
+  //     } else {
+  //       const product = await strapi.db
+  //         .query("product")
+  //         .findOne({ where: { id: productId } });
 
-      return ctx.send(updatedUser);
-    } catch (error) {
-      strapi.log.error(`Error in toggleFavorite: ${error.message}`);
-      return ctx.internalServerError("An error occurred");
-    }
-  };
+  //       console.log("product:", product);
+
+  //       if (!product) {
+  //         return ctx.notFound("Product not found");
+  //       }
+  //       updatedFavoritesIds = [...user.favorites, product];
+  //     }
+
+  //     console.log("updatedFavoritesIds:", updatedFavoritesIds);
+
+  //     const updatedFavoritesIdsArray = updatedFavoritesIds.map((fav) => fav.id);
+
+  //     console.log("updatedFavoritesIdsArray:", updatedFavoritesIdsArray);
+
+  //     const updatedUser = await strapi.db
+  //       .query("plugin::users-permissions.user")
+  //       .update(
+  //         { id: userId },
+  //         { favorites: updatedFavoritesIdsArray } // Updated this line
+  //       );
+
+  //     console.log("updatedUser:", updatedUser);
+
+  //     return ctx.send(updatedUser);
+  //   } catch (error) {
+  //     console.error(`Error in toggleFavorite: ${error.message}`);
+  //     return ctx.internalServerError("An error occurred");
+  //   }
+  // };
 
   // Add the custom Update me route
   plugin.routes["content-api"].routes.unshift({
@@ -169,14 +174,14 @@ module.exports = (plugin) => {
   });
 
   // Add the custom Confirm me route
-  plugin.routes["content-api"].routes.unshift({
-    method: "PUT",
-    path: "/users/me/favorites",
-    handler: "user.toggleFavorite",
-    config: {
-      prefix: "",
-    },
-  });
+  // plugin.routes["content-api"].routes.unshift({
+  //   method: "PUT",
+  //   path: "/users/me/update-favorites",
+  //   handler: "user.FavoritesUpdate",
+  //   config: {
+  //     prefix: "",
+  //   },
+  // });
 
   return plugin;
 };

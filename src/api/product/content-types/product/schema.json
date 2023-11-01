@@ -39,10 +39,6 @@
       "type": "integer",
       "default": 0
     },
-    "like": {
-      "type": "boolean",
-      "default": false
-    },
     "category": {
       "type": "string",
       "default": "no-category-yet",

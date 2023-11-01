@@ -743,7 +743,6 @@ export interface ApiProductProduct extends Schema.CollectionType {
       Attribute.DefaultTo<'no-description-yet'>;
     image: Attribute.Media;
     count: Attribute.Integer & Attribute.DefaultTo<0>;
-    like: Attribute.Boolean & Attribute.DefaultTo<false>;
     category: Attribute.String &
       Attribute.Required &
       Attribute.DefaultTo<'no-category-yet'>;
