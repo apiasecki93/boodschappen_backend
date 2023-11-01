@@ -362,6 +362,121 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
   };
 }
 
+export interface ApiHomepaginaHomepagina extends Schema.SingleType {
+  collectionName: 'homepaginas';
+  info: {
+    singularName: 'homepagina';
+    pluralName: 'homepaginas';
+    displayName: 'Homepagina';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    sectie1_titel: Attribute.String;
+    sectie1_titel_en: Attribute.String;
+    sectie1_text: Attribute.RichText;
+    sectie1_text_en: Attribute.RichText;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::homepagina.homepagina',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::homepagina.homepagina',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiProductProduct extends Schema.CollectionType {
+  collectionName: 'products';
+  info: {
+    singularName: 'product';
+    pluralName: 'products';
+    displayName: 'Product';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    productName: Attribute.String & Attribute.Required & Attribute.Unique;
+    slug: Attribute.UID<'api::product.product', 'productName'> &
+      Attribute.Required;
+    description: Attribute.RichText &
+      Attribute.Required &
+      Attribute.DefaultTo<'no-description-yet'>;
+    image: Attribute.Media;
+    count: Attribute.Integer & Attribute.DefaultTo<0>;
+    category: Attribute.String &
+      Attribute.Required &
+      Attribute.DefaultTo<'no-category-yet'>;
+    users: Attribute.Relation<
+      'api::product.product',
+      'manyToMany',
+      'plugin::users-permissions.user'
+    >;
+    creator: Attribute.Relation<
+      'api::product.product',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::product.product',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::product.product',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiShoppingListProductShoppingListProduct
+  extends Schema.CollectionType {
+  collectionName: 'shopping_list_products';
+  info: {
+    singularName: 'shopping-list-product';
+    pluralName: 'shopping-list-products';
+    displayName: 'ShoppingListProduct';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::shopping-list-product.shopping-list-product',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::shopping-list-product.shopping-list-product',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface PluginUploadFile extends Schema.CollectionType {
   collectionName: 'files';
   info: {
@@ -690,121 +805,6 @@ export interface PluginI18NLocale extends Schema.CollectionType {
   };
 }
 
-export interface ApiHomepaginaHomepagina extends Schema.SingleType {
-  collectionName: 'homepaginas';
-  info: {
-    singularName: 'homepagina';
-    pluralName: 'homepaginas';
-    displayName: 'Homepagina';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    sectie1_titel: Attribute.String;
-    sectie1_titel_en: Attribute.String;
-    sectie1_text: Attribute.RichText;
-    sectie1_text_en: Attribute.RichText;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::homepagina.homepagina',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::homepagina.homepagina',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiProductProduct extends Schema.CollectionType {
-  collectionName: 'products';
-  info: {
-    singularName: 'product';
-    pluralName: 'products';
-    displayName: 'Product';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    productName: Attribute.String & Attribute.Required & Attribute.Unique;
-    slug: Attribute.UID<'api::product.product', 'productName'> &
-      Attribute.Required;
-    description: Attribute.RichText &
-      Attribute.Required &
-      Attribute.DefaultTo<'no-description-yet'>;
-    image: Attribute.Media;
-    count: Attribute.Integer & Attribute.DefaultTo<0>;
-    category: Attribute.String &
-      Attribute.Required &
-      Attribute.DefaultTo<'no-category-yet'>;
-    users: Attribute.Relation<
-      'api::product.product',
-      'manyToMany',
-      'plugin::users-permissions.user'
-    >;
-    creator: Attribute.Relation<
-      'api::product.product',
-      'manyToOne',
-      'plugin::users-permissions.user'
-    >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::product.product',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::product.product',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiShoppingListProductShoppingListProduct
-  extends Schema.CollectionType {
-  collectionName: 'shopping_list_products';
-  info: {
-    singularName: 'shopping-list-product';
-    pluralName: 'shopping-list-products';
-    displayName: 'ShoppingListProduct';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::shopping-list-product.shopping-list-product',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::shopping-list-product.shopping-list-product',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -815,15 +815,15 @@ declare module '@strapi/types' {
       'admin::api-token-permission': AdminApiTokenPermission;
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
+      'api::homepagina.homepagina': ApiHomepaginaHomepagina;
+      'api::product.product': ApiProductProduct;
+      'api::shopping-list-product.shopping-list-product': ApiShoppingListProductShoppingListProduct;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'plugin::i18n.locale': PluginI18NLocale;
-      'api::homepagina.homepagina': ApiHomepaginaHomepagina;
-      'api::product.product': ApiProductProduct;
-      'api::shopping-list-product.shopping-list-product': ApiShoppingListProductShoppingListProduct;
     }
   }
 }
