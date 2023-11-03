@@ -15,6 +15,8 @@
     "@strapi/provider-email-sendgrid": "^4.5.3",
     "@strapi/provider-upload-cloudinary": "4.5.3",
     "@strapi/strapi": "^v4.14.5",
+    "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
     "better-sqlite3": "^8.0.1",
     "pg": "8.7.3",
     "strapi-plugin-populate-deep": "^1.1.2"

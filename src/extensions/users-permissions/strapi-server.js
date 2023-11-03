@@ -1,15 +1,20 @@
 const _ = require("lodash");
 8;
-const { parseMultipartData } = require("@strapi/utils");
+// const { parseMultipartData } = require("@strapi/utils");
+// const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 
 module.exports = (plugin) => {
   //UPDATE ME CONTROLLER
+
+
   plugin.controllers.user.updateMe = async (ctx) => {
     const user = ctx.state.user;
     if (!user) return ctx.unauthorized();
 
+    console.log(ctx.request.body);
     if (ctx.is("multipart")) {
-      const { data, files } = parseMultipartData(ctx);
+      // const { data, files } = parseMultipartData(ctx);
       ctx.request.body = _.pick(data, ["firstname", "lastname"]);
       ctx.params = { id: user.id };
 
@@ -153,6 +158,117 @@ module.exports = (plugin) => {
   //   }
   // };
 
+  plugin.controllers.user.changePassword = async (ctx) => {
+    const user = ctx.state.user;
+    if (!user) return ctx.unauthorized();
+
+    const { currentPassword, newPassword } = ctx.request.body;
+    if (!currentPassword || !newPassword) {
+      return ctx.badRequest("Current and new passwords are required");
+    }
+
+    const validPassword = await bcrypt.compare(currentPassword, user.password);
+    if (!validPassword) {
+      return ctx.forbidden("Current password is incorrect");
+    }
+
+    // const hashedPassword = await bcrypt.hash(newPassword, 10);
+    // console.log(hashedPassword);
+    // console.log(newPassword); // 10 is the salt rounds
+    ctx.params = { id: user.id };
+    ctx.request.body = {
+      password: newPassword,
+    };
+
+    return await strapi.plugins["users-permissions"]
+      .controller("user")
+      .update(ctx);
+  };
+
+  plugin.controllers.user.changeUserInfo = async (ctx) => {
+    const user = ctx.state.user;
+    console.log(user);
+    if (!user) return ctx.unauthorized();
+    console.log(ctx.request.body);
+    const { username, email, firstname, lastname, thumbnail } = ctx.request.body;
+    console.log(lastname);
+    // Create an object to hold the updated fields
+    let updates = {};
+  
+    // Check each field to see if it was provided, and if so, add it to the updates object
+    if (username) updates.username = username;
+    if (email) updates.email = email;
+    if (firstname) updates.firstname = firstname;
+    if (lastname) updates.lastname = lastname;
+    if (thumbnail) updates.thumbnail = thumbnail;
+    console.log(thumbnail);
+    if (thumbnail) {
+      const result = await strapi.plugins.upload.services.upload.upload({
+        data: {
+          refId: user.id,
+          ref: "plugin::users-permissions.user",
+          source: "users-permissions",
+          field: "thumbnail",
+        },
+        files: thumbnail,
+      });
+      if (!result) {
+        return ctx.badRequest("Thumbnail upload failed");
+      }
+    }
+  
+    // If no fields were provided, send a bad request response
+    if (Object.keys(updates).length === 0) {
+      return ctx.badRequest("No fields provided for update");
+    }
+  
+    // Set the ctx.params and ctx.request.body fields for the strapi update method
+    ctx.params = { id: user.id };
+    ctx.request.body = updates;
+  
+    // Call the strapi update method to update the user
+    return await strapi.plugins['users-permissions'].controller('user').update(ctx);
+  };
+  
+
+  plugin.controllers.user.changeUserThumbnail = async (ctx) => {
+    const user = ctx.state.user;
+    console.log(user);
+    if (!user) return ctx.unauthorized();
+
+    // Access the thumbnail file from ctx.request.files instead of ctx.request.body
+    const { thumbnail } = ctx.request.files;
+
+    // Create an object to hold the updated fields
+    let updates = {};
+
+    if (thumbnail) {
+        const result = await strapi.plugins.upload.services.upload.upload({
+            data: {
+                refId: user.id,
+                ref: "plugin::users-permissions.user",
+                source: "users-permissions",
+                field: "thumbnail",
+            },
+            files: thumbnail,
+        });
+        if (!result) {
+            return ctx.badRequest("Thumbnail upload failed");
+        }
+        // Update the thumbnail field in the updates object with the file info from the upload result
+        updates.thumbnail = result[0];  // Assuming result is an array of file info objects
+    }
+
+    // Set the ctx.params and ctx.request.body fields for the strapi update method
+    ctx.params = { id: user.id };
+    ctx.request.body = updates;
+
+    // Call the strapi update method to update the user
+    return await strapi.plugins['users-permissions'].controllers.user.update(ctx);
+}
+
+
+
   // Add the custom Update me route
   plugin.routes["content-api"].routes.unshift({
     method: "PUT",
@@ -182,6 +298,39 @@ module.exports = (plugin) => {
   //     prefix: "",
   //   },
   // });
+
+  // change user password
+  plugin.routes["content-api"].routes.unshift({
+    method: "PUT",
+    path: "/users/change-password",
+    handler: "user.changePassword",
+    config: {
+      prefix: "",
+    },
+  });
+
+  // change user information
+  plugin.routes["content-api"].routes.unshift({
+    method: "PUT",
+    path: "/users/change-user-info",
+    handler: "user.changeUserInfo",
+    config: {
+      prefix: "",
+    },
+  });
+
+
+   // change user information
+   plugin.routes["content-api"].routes.unshift({
+    method: "PUT",
+    path: "/users/change-user-thumbnail",
+    handler: "user.changeUserThumbnail",
+    config: {
+      prefix: "",
+    },
+  });
+
+
 
   return plugin;
 };
