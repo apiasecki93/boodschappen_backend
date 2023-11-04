@@ -187,11 +187,11 @@ module.exports = (plugin) => {
 
   plugin.controllers.user.changeUserInfo = async (ctx) => {
     const user = ctx.state.user;
-    console.log(user);
+    // console.log(user);
     if (!user) return ctx.unauthorized();
     console.log(ctx.request.body);
     const { username, email, firstname, lastname, thumbnail } = ctx.request.body;
-    console.log(lastname);
+    // console.log(lastname);
     // Create an object to hold the updated fields
     let updates = {};
   
