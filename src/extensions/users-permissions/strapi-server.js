@@ -269,6 +269,8 @@ module.exports = (plugin) => {
 
 
 
+
+
   // Add the custom Update me route
   plugin.routes["content-api"].routes.unshift({
     method: "PUT",

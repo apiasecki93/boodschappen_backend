@@ -362,39 +362,6 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
   };
 }
 
-export interface ApiHomepaginaHomepagina extends Schema.SingleType {
-  collectionName: 'homepaginas';
-  info: {
-    singularName: 'homepagina';
-    pluralName: 'homepaginas';
-    displayName: 'Homepagina';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    sectie1_titel: Attribute.String;
-    sectie1_titel_en: Attribute.String;
-    sectie1_text: Attribute.RichText;
-    sectie1_text_en: Attribute.RichText;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::homepagina.homepagina',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::homepagina.homepagina',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
 export interface ApiProductProduct extends Schema.CollectionType {
   collectionName: 'products';
   info: {
@@ -446,30 +413,29 @@ export interface ApiProductProduct extends Schema.CollectionType {
   };
 }
 
-export interface ApiShoppingListProductShoppingListProduct
-  extends Schema.CollectionType {
-  collectionName: 'shopping_list_products';
+export interface ApiShoppingListShoppingList extends Schema.CollectionType {
+  collectionName: 'shopping_lists';
   info: {
-    singularName: 'shopping-list-product';
-    pluralName: 'shopping-list-products';
-    displayName: 'ShoppingListProduct';
-    description: '';
+    singularName: 'shopping-list';
+    pluralName: 'shopping-lists';
+    displayName: 'ShoppingList';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
+    dynamicShoppingList: Attribute.DynamicZone<['entry.user-product-entry']>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
-      'api::shopping-list-product.shopping-list-product',
+      'api::shopping-list.shopping-list',
       'oneToOne',
       'admin::user'
     > &
       Attribute.Private;
     updatedBy: Attribute.Relation<
-      'api::shopping-list-product.shopping-list-product',
+      'api::shopping-list.shopping-list',
       'oneToOne',
       'admin::user'
     > &
@@ -815,9 +781,8 @@ declare module '@strapi/types' {
       'admin::api-token-permission': AdminApiTokenPermission;
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
-      'api::homepagina.homepagina': ApiHomepaginaHomepagina;
       'api::product.product': ApiProductProduct;
-      'api::shopping-list-product.shopping-list-product': ApiShoppingListProductShoppingListProduct;
+      'api::shopping-list.shopping-list': ApiShoppingListShoppingList;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;

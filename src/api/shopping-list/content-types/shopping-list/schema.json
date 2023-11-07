@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "shopping_lists",
+  "info": {
+    "singularName": "shopping-list",
+    "pluralName": "shopping-lists",
+    "displayName": "ShoppingList"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "dynamicShoppingList": {
+      "type": "dynamiczone",
+      "components": [
+        "entry.user-product-entry"
+      ]
+    }
+  }
+}
