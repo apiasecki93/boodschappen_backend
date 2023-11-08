@@ -9,5 +9,14 @@ module.exports = {
         middlewares: [],
       },
     },
+    {
+      method: 'GET',
+      path: '/shopping-lists',
+      handler: 'shopping-list.findAll',
+      config: {
+        policies: [],
+        middlewares: [],
+      },
+    },
   ],
 };

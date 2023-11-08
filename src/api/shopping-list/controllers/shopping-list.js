@@ -102,5 +102,22 @@ module.exports = createCoreController(
         ctx.badRequest("Error upserting entry", { error });
       }
     },
+    async findAll(ctx) {
+      try {
+        // Fetch all shopping lists with populated dynamicShoppingList
+        const shoppingLists = await strapi.entityService.findMany(
+          "api::shopping-list.shopping-list",
+          {
+            populate: {
+              dynamicShoppingList: { populate: ["product", "users"] },
+            },
+          }
+        );
+
+        ctx.body = shoppingLists;
+      } catch (error) {
+        ctx.badRequest("Cannot fetch shopping lists", { error });
+      }
+    },
   })
 );
