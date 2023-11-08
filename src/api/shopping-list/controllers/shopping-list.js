@@ -104,12 +104,18 @@ module.exports = createCoreController(
     },
     async findAll(ctx) {
       try {
-        // Fetch all shopping lists with populated dynamicShoppingList
+        // Fetch all shopping lists with populated dynamicShoppingList, images, and creator
         const shoppingLists = await strapi.entityService.findMany(
           "api::shopping-list.shopping-list",
           {
             populate: {
-              dynamicShoppingList: { populate: ["product", "users"] },
+              dynamicShoppingList: {
+                populate: {
+                  product: { populate: ["image", "creator"] },
+                  users: true,
+                  creator: true,
+                },
+              },
             },
           }
         );
@@ -117,6 +123,71 @@ module.exports = createCoreController(
         ctx.body = shoppingLists;
       } catch (error) {
         ctx.badRequest("Cannot fetch shopping lists", { error });
+      }
+    },
+
+    async reduceProductQuantity(ctx) {
+      try {
+        const { productId, quantityToReduce } = ctx.request.body;
+        // console.log(
+        //   `Received productId: ${productId}, quantityToReduce: ${quantityToReduce}`
+        // );
+
+        const shoppingListId = 1; // The ID of the shopping list
+
+        // Fetch the existing shopping list
+        const existingList = await strapi.entityService.findOne(
+          "api::shopping-list.shopping-list",
+          shoppingListId,
+          {
+            populate: { dynamicShoppingList: { populate: ["product"] } },
+          }
+        );
+
+        if (!existingList) {
+          console.log("Shopping list not found");
+          return ctx.notFound("Shopping list not found");
+        }
+
+        // Find the product entry in the list
+        const productEntryIndex = existingList.dynamicShoppingList.findIndex(
+          (entry) => entry.product && entry.product.id === productId
+        );
+
+        if (productEntryIndex === -1) {
+          console.log("Product not found in the list");
+          return ctx.notFound("Product not found in the list");
+        }
+
+        // Get the current quantity of the product
+        const currentQuantity =
+          existingList.dynamicShoppingList[productEntryIndex].quantity;
+
+        // Check if there is enough quantity to reduce
+        if (quantityToReduce > currentQuantity) {
+          // Not enough product to reduce
+          return ctx.badRequest("Not enough product to reduce");
+        }
+
+        // Reduce the quantity of the product
+        existingList.dynamicShoppingList[productEntryIndex].quantity -=
+          quantityToReduce;
+
+        // Update the shopping list
+        const updatedList = await strapi.entityService.update(
+          "api::shopping-list.shopping-list",
+          shoppingListId,
+          {
+            data: {
+              dynamicShoppingList: existingList.dynamicShoppingList,
+            },
+          }
+        );
+
+        ctx.body = { message: "Product quantity reduced successfully" };
+      } catch (error) {
+        console.error("Error reducing product quantity:", error);
+        ctx.badRequest("Error reducing product quantity", { error });
       }
     },
   })
