@@ -198,12 +198,8 @@ module.exports = createCoreController(
 
     async removeEntry(ctx) {
       try {
-        const userId = ctx.state.user.id;
-        if (!userId) return ctx.unauthorized();
-        console.log(ctx.request.body)
         const { productId } = ctx.request.body;
         const shoppingListId = 1; // Assuming a single shopping list for simplicity
-        console.log(`Received productId: ${productId}, userId: ${userId}`);
 
         // Fetch the existing shopping list
         const existingList = await strapi.entityService.findOne(
@@ -220,7 +216,7 @@ module.exports = createCoreController(
           return ctx.notFound("Shopping list not found");
         }
 
-        // Find the product entry in the list
+        // Find the product entry index in the list
         const productEntryIndex = existingList.dynamicShoppingList.findIndex(
           (entry) => entry.product && entry.product.id === productId
         );
@@ -229,14 +225,8 @@ module.exports = createCoreController(
           return ctx.notFound("Product not found in the list");
         }
 
-        // Get the product entry
-        const productEntry =
-          existingList.dynamicShoppingList[productEntryIndex];
-
-        // Find and remove the user from the product entry
-        productEntry.users = productEntry.users.filter(
-          (user) => user.id !== userId
-        );
+        // Remove the product entry from the list
+        existingList.dynamicShoppingList.splice(productEntryIndex, 1);
 
         // Update the shopping list
         const updatedList = await strapi.entityService.update(
@@ -249,10 +239,13 @@ module.exports = createCoreController(
           }
         );
 
-        ctx.body = { message: "User removed from entry successfully" };
+        ctx.body = {
+          message: "Product entry removed successfully",
+          updatedList,
+        };
       } catch (error) {
-        console.error("Error removing user from entry:", error);
-        ctx.badRequest("Error removing user from entry", { error });
+        console.error("Error removing product entry:", error);
+        ctx.badRequest("Error removing product entry", { error });
       }
     },
   })
