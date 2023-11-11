@@ -7,7 +7,10 @@ module.exports = createCoreController(
   ({ strapi }) => ({
     async upsertEntry(ctx) {
       try {
-        const { productId, quantity, userId } = ctx.request.body;
+        const userId = ctx.state.user.id;
+        console.log(`User ID: ${userId}`);
+        if (!userId) return ctx.unauthorized();
+        const { productId, quantity } = ctx.request.body;
         console.log(
           `Received productId: ${productId}, userId: ${userId}, quantity: ${quantity}`
         );
@@ -24,8 +27,8 @@ module.exports = createCoreController(
             },
           }
         );
-
-        console.log("Existing list:", JSON.stringify(existingList, null, 2));
+        console.log(existingList);
+        // console.log("Existing list:", JSON.stringify(existingList, null, 2));
 
         if (!existingList) {
           console.log("Shopping list not found");
@@ -54,7 +57,7 @@ module.exports = createCoreController(
           );
 
           if (!userExists) {
-            console.log(`User with ID ${userId} does not exist.`);
+            // console.log(`User with ID ${userId} does not exist.`);
             return ctx.badRequest(`User with ID ${userId} does not exist.`);
           }
 
@@ -70,7 +73,7 @@ module.exports = createCoreController(
           let userIndex = productEntry.users.findIndex(
             (user) => user.id === userId
           );
-          console.log(`User index: ${userIndex}`);
+          // console.log(`User index: ${userIndex}`);
 
           if (userIndex === -1) {
             // User not found in the product, add the user
@@ -93,10 +96,10 @@ module.exports = createCoreController(
             },
           }
         );
+        console.log(updatedList);
+        // console.log("Updated list:", JSON.stringify(updatedList, null, 2));
 
-        console.log("Updated list:", JSON.stringify(updatedList, null, 2));
-
-        ctx.body = { message: "Entry upserted successfully" };
+        ctx.body = { message: "Entry upserted successfully", updatedList };
       } catch (error) {
         console.error("Error upserting entry:", error);
         ctx.badRequest("Error upserting entry", { error });
@@ -127,6 +130,8 @@ module.exports = createCoreController(
     },
 
     async reduceProductQuantity(ctx) {
+      const user = ctx.state.user;
+      if (!user) return ctx.unauthorized();
       try {
         const { productId, quantityToReduce } = ctx.request.body;
         // console.log(
@@ -145,7 +150,7 @@ module.exports = createCoreController(
         );
 
         if (!existingList) {
-          console.log("Shopping list not found");
+          // console.log("Shopping list not found");
           return ctx.notFound("Shopping list not found");
         }
 
@@ -155,7 +160,7 @@ module.exports = createCoreController(
         );
 
         if (productEntryIndex === -1) {
-          console.log("Product not found in the list");
+          // console.log("Product not found in the list");
           return ctx.notFound("Product not found in the list");
         }
 
@@ -188,6 +193,66 @@ module.exports = createCoreController(
       } catch (error) {
         console.error("Error reducing product quantity:", error);
         ctx.badRequest("Error reducing product quantity", { error });
+      }
+    },
+
+    async removeEntry(ctx) {
+      try {
+        const userId = ctx.state.user.id;
+        if (!userId) return ctx.unauthorized();
+        console.log(ctx.request.body)
+        const { productId } = ctx.request.body;
+        const shoppingListId = 1; // Assuming a single shopping list for simplicity
+        console.log(`Received productId: ${productId}, userId: ${userId}`);
+
+        // Fetch the existing shopping list
+        const existingList = await strapi.entityService.findOne(
+          "api::shopping-list.shopping-list",
+          shoppingListId,
+          {
+            populate: {
+              dynamicShoppingList: { populate: ["product", "users"] },
+            },
+          }
+        );
+
+        if (!existingList) {
+          return ctx.notFound("Shopping list not found");
+        }
+
+        // Find the product entry in the list
+        const productEntryIndex = existingList.dynamicShoppingList.findIndex(
+          (entry) => entry.product && entry.product.id === productId
+        );
+
+        if (productEntryIndex === -1) {
+          return ctx.notFound("Product not found in the list");
+        }
+
+        // Get the product entry
+        const productEntry =
+          existingList.dynamicShoppingList[productEntryIndex];
+
+        // Find and remove the user from the product entry
+        productEntry.users = productEntry.users.filter(
+          (user) => user.id !== userId
+        );
+
+        // Update the shopping list
+        const updatedList = await strapi.entityService.update(
+          "api::shopping-list.shopping-list",
+          shoppingListId,
+          {
+            data: {
+              dynamicShoppingList: existingList.dynamicShoppingList,
+            },
+          }
+        );
+
+        ctx.body = { message: "User removed from entry successfully" };
+      } catch (error) {
+        console.error("Error removing user from entry:", error);
+        ctx.badRequest("Error removing user from entry", { error });
       }
     },
   })

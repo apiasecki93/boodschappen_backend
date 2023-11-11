@@ -27,5 +27,14 @@ module.exports = {
         middlewares: [],
       },
     },
+    {
+      method: "POST",
+      path: "/shopping-lists/remove-entry",
+      handler: "shopping-list.removeEntry",
+      config: {
+        policies: [],
+        middlewares: [],
+      },
+    },
   ],
 };

@@ -189,7 +189,7 @@ module.exports = (plugin) => {
     const user = ctx.state.user;
     // console.log(user);
     if (!user) return ctx.unauthorized();
-    console.log(ctx.request.body);
+    // console.log(ctx.request.body);
     const { username, email, firstname, lastname, thumbnail } = ctx.request.body;
     // console.log(lastname);
     // Create an object to hold the updated fields
@@ -201,7 +201,7 @@ module.exports = (plugin) => {
     if (firstname) updates.firstname = firstname;
     if (lastname) updates.lastname = lastname;
     if (thumbnail) updates.thumbnail = thumbnail;
-    console.log(thumbnail);
+    // console.log(thumbnail);
     if (thumbnail) {
       const result = await strapi.plugins.upload.services.upload.upload({
         data: {
@@ -233,7 +233,7 @@ module.exports = (plugin) => {
 
   plugin.controllers.user.changeUserThumbnail = async (ctx) => {
     const user = ctx.state.user;
-    console.log(user);
+    // console.log(user);
     if (!user) return ctx.unauthorized();
 
     // Access the thumbnail file from ctx.request.files instead of ctx.request.body
