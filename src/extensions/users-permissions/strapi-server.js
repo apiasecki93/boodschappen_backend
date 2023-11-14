@@ -267,8 +267,32 @@ module.exports = (plugin) => {
     return await strapi.plugins['users-permissions'].controllers.user.update(ctx);
 }
 
+plugin.controllers.user.deleteProduct = async (ctx) => {
+  const { id: productId } = ctx.params;
+  
+  if (!productId) {
+    return ctx.badRequest("Product ID is required");
+  }
 
+  try {
+    const product = await strapi.db
+      .query("product")
+      .findOne({ where: { id: productId } });
 
+    if (!product) {
+      return ctx.notFound("Product not found");
+    }
+
+    await strapi.db
+      .query("product")
+      .delete({ where: { id: productId } });
+
+    return ctx.send({ message: "Product successfully deleted" });
+  } catch (error) {
+    console.error(`Error in deleteProduct: ${error.message}`);
+    return ctx.internalServerError("An error occurred during product deletion");
+  }
+};
 
 
   // Add the custom Update me route
@@ -331,6 +355,17 @@ module.exports = (plugin) => {
       prefix: "",
     },
   });
+
+
+  plugin.routes["content-api"].routes.unshift({
+    method: "DELETE",
+    path: "/products/:id",
+    handler: "user.deleteProduct",
+    config: {
+      prefix: "",
+    },
+  });
+  
 
 
 
