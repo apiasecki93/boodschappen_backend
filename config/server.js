@@ -4,7 +4,6 @@ module.exports = ({ env }) => ({
   app: {
     keys: env.array("APP_KEYS"),
   },
-  url: env('', 'http://localhost:1337'),
 });
 
 // module.exports = ({ env }) => ({
