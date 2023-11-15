@@ -1,24 +1,24 @@
 module.exports = ({ env }) => ({
   host: env('HOST', '0.0.0.0'),
-  port: env.int('PORT', 1338),
+  port: env.int('PORT', 1337),
   app: {
     keys: env.array("APP_KEYS"),
   },
-  url: env('', 'http://localhost:1338'),
+  url: env('', 'http://localhost:1337'),
 });
 
-module.exports = ({ env }) => ({
-  host: env('HOST', '0.0.0.0'),
-  port: env.int('PORT', 1337),
-  app: {
-        keys: env.array("APP_KEYS"),
-      },
-  url: env('PUBLIC_URL', 'http://localhost:1337'), // update this line
-  settings: {
-    cors: {
-      enabled: true,
-      origin: ['http://localhost:3000'], // update this line
-      headers: '*', // Optional: you might want to specify headers
-    },
-  },
-});
+// module.exports = ({ env }) => ({
+//   host: env('HOST', '0.0.0.0'),
+//   port: env.int('PORT', 1338),
+//   app: {
+//         keys: env.array("APP_KEYS"),
+//       },
+//   url: env('PUBLIC_URL', 'http://localhost:1338'), // update this line
+//   settings: {
+//     cors: {
+//       enabled: true,
+//       origin: ['http://localhost:3000'], // update this line
+//       headers: '*', // Optional: you might want to specify headers
+//     },
+//   },
+// });
