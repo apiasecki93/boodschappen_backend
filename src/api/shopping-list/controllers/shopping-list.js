@@ -8,7 +8,7 @@ module.exports = createCoreController(
     async upsertEntry(ctx) {
       try {
         const userId = ctx.state.user.id;
-        console.log(`User ID: ${userId}`);
+        // console.log(`User ID: ${userId}`);
         if (!userId) return ctx.unauthorized();
         const { productId, quantity } = ctx.request.body;
         console.log(
@@ -27,7 +27,7 @@ module.exports = createCoreController(
             },
           }
         );
-        console.log(existingList);
+        // console.log(existingList);
         // console.log("Existing list:", JSON.stringify(existingList, null, 2));
 
         if (!existingList) {

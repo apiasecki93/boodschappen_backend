@@ -7,6 +7,7 @@ const bcrypt = require("bcryptjs");
 module.exports = (plugin) => {
   //UPDATE ME CONTROLLER
 
+
   plugin.controllers.user.updateMe = async (ctx) => {
     const user = ctx.state.user;
     if (!user) return ctx.unauthorized();
@@ -102,7 +103,7 @@ module.exports = (plugin) => {
   //     }
 
   //     const user = await strapi.db
-  //       .query("plugin::users-permissions.user")
+  //       .  ("plugin::users-permissions.user")
   //       .findOne({ where: { id: userId }, populate: ["favorites"] });
 
   //     console.log("user:", user);
@@ -189,12 +190,11 @@ module.exports = (plugin) => {
     // console.log(user);
     if (!user) return ctx.unauthorized();
     // console.log(ctx.request.body);
-    const { username, email, firstname, lastname, thumbnail } =
-      ctx.request.body;
+    const { username, email, firstname, lastname, thumbnail } = ctx.request.body;
     // console.log(lastname);
     // Create an object to hold the updated fields
     let updates = {};
-
+  
     // Check each field to see if it was provided, and if so, add it to the updates object
     if (username) updates.username = username;
     if (email) updates.email = email;
@@ -216,21 +216,20 @@ module.exports = (plugin) => {
         return ctx.badRequest("Thumbnail upload failed");
       }
     }
-
+  
     // If no fields were provided, send a bad request response
     if (Object.keys(updates).length === 0) {
       return ctx.badRequest("No fields provided for update");
     }
-
+  
     // Set the ctx.params and ctx.request.body fields for the strapi update method
     ctx.params = { id: user.id };
     ctx.request.body = updates;
-
+  
     // Call the strapi update method to update the user
-    return await strapi.plugins["users-permissions"]
-      .controller("user")
-      .update(ctx);
+    return await strapi.plugins['users-permissions'].controller('user').update(ctx);
   };
+  
 
   plugin.controllers.user.changeUserThumbnail = async (ctx) => {
     const user = ctx.state.user;
@@ -244,20 +243,20 @@ module.exports = (plugin) => {
     let updates = {};
 
     if (thumbnail) {
-      const result = await strapi.plugins.upload.services.upload.upload({
-        data: {
-          refId: user.id,
-          ref: "plugin::users-permissions.user",
-          source: "users-permissions",
-          field: "thumbnail",
-        },
-        files: thumbnail,
-      });
-      if (!result) {
-        return ctx.badRequest("Thumbnail upload failed");
-      }
-      // Update the thumbnail field in the updates object with the file info from the upload result
-      updates.thumbnail = result[0]; // Assuming result is an array of file info objects
+        const result = await strapi.plugins.upload.services.upload.upload({
+            data: {
+                refId: user.id,
+                ref: "plugin::users-permissions.user",
+                source: "users-permissions",
+                field: "thumbnail",
+            },
+            files: thumbnail,
+        });
+        if (!result) {
+            return ctx.badRequest("Thumbnail upload failed");
+        }
+        // Update the thumbnail field in the updates object with the file info from the upload result
+        updates.thumbnail = result[0];  // Assuming result is an array of file info objects
     }
 
     // Set the ctx.params and ctx.request.body fields for the strapi update method
@@ -265,131 +264,36 @@ module.exports = (plugin) => {
     ctx.request.body = updates;
 
     // Call the strapi update method to update the user
-    return await strapi.plugins["users-permissions"].controllers.user.update(
-      ctx
-    );
-  };
+    return await strapi.plugins['users-permissions'].controllers.user.update(ctx);
+}
 
-  // plugin.controllers.user.deleteProduct = async (ctx) => {
-  //   const { id: productId } = ctx.params;
+plugin.controllers.user.deleteProduct = async (ctx) => {
+  const { id: productId } = ctx.params;
+  
+  if (!productId) {
+    return ctx.badRequest("Product ID is required");
+  }
 
-  //   if (!productId) {
-  //     return ctx.badRequest("Product ID is required");
-  //   }
+  try {
+    const product = await strapi.db
+      .query("product")
+      .findOne({ where: { id: productId } });
 
-  //   try {
-  //     // Znalezienie produktu w kolekcji produktów
-  //     const product = await strapi.db
-  //       .query("product")
-  //       .findOne({ where: { id: productId } });
-
-  //     if (!product) {
-  //       return ctx.notFound("Product not found");
-  //     }
-
-  //     const productName = product.productName; // Pobieranie nazwy produktu
-
-  //     // Znalezienie i usunięcie wpisu produktu z dynamicznej listy na podstawie nazwy produktu
-  //     const shoppingListId = 1; // Zakładając, że jest jedna lista zakupów
-  //     const existingList = await strapi.entityService.findOne(
-  //       "api::shopping-list.shopping-list",
-  //       shoppingListId,
-  //       {
-  //         populate: {
-  //           dynamicShoppingList: { populate: ["product", "users"] },
-  //         },
-  //       }
-  //     );
-
-  //     if (existingList) {
-  //       const entryIndex = existingList.dynamicShoppingList.findIndex(
-  //         (entry) => entry.product && entry.product.productName === productName
-  //       );
-
-  //       if (entryIndex !== -1) {
-  //         existingList.dynamicShoppingList.splice(entryIndex, 1);
-  //         await strapi.entityService.update(
-  //           "api::shopping-list.shopping-list",
-  //           shoppingListId,
-  //           {
-  //             data: {
-  //               dynamicShoppingList: existingList.dynamicShoppingList,
-  //             },
-  //           }
-  //         );
-  //       }
-  //     }
-
-  //     // Usunięcie produktu z kolekcji produktów
-  //     await strapi.db
-  //       .query("product")
-  //       .delete({ where: { id: productId } });
-
-  //     return ctx.send({ message: "Product successfully deleted" });
-  //   } catch (error) {
-  //     return ctx.internalServerError("An error occurred during product deletion");
-  //   }
-  // };
-
-  plugin.controllers.user.deleteProductCol = async (ctx) => {
-    const { id: productId } = ctx.params;
-
-    if (!productId) {
-      return ctx.badRequest("Product ID is required");
+    if (!product) {
+      return ctx.notFound("Product not found");
     }
 
-    try {
-      const product = await strapi.db
-        .query("api::product.product")
-        .findOne({ where: { id: productId } });
+    await strapi.db
+      .query("product")
+      .delete({ where: { id: productId } });
 
-      if (!product) {
-        return ctx.notFound("Product not found");
-      }
+    return ctx.send({ message: "Product successfully deleted" });
+  } catch (error) {
+    console.error(`Error in deleteProduct: ${error.message}`);
+    return ctx.internalServerError("An error occurred during product deletion");
+  }
+};
 
-      const productName = product.productName;
-
-      const shoppingListId = 1;
-      const existingList = await strapi.entityService.findOne(
-        "api::shopping-list.shopping-list",
-        shoppingListId,
-        {
-          populate: {
-            dynamicShoppingList: { populate: ["product", "users"] },
-          },
-        }
-      );
-
-      if (existingList) {
-        const entryIndex = existingList.dynamicShoppingList.findIndex(
-          (entry) => entry.product && entry.product.productName === productName
-        );
-
-        if (entryIndex !== -1) {
-          existingList.dynamicShoppingList.splice(entryIndex, 1);
-          await strapi.entityService.update(
-            "api::shopping-list.shopping-list",
-            shoppingListId,
-            {
-              data: {
-                dynamicShoppingList: existingList.dynamicShoppingList,
-              },
-            }
-          );
-        }
-      }
-
-      await strapi.db
-        .query("api::product.product")
-        .delete({ where: { id: productId } });
-
-      return ctx.send({ message: "Product successfully deleted" });
-    } catch (error) {
-      return ctx.internalServerError(
-        "An error occurred during product deletion"
-      );
-    }
-  };
 
   // Add the custom Update me route
   plugin.routes["content-api"].routes.unshift({
@@ -441,8 +345,9 @@ module.exports = (plugin) => {
     },
   });
 
-  // change user information
-  plugin.routes["content-api"].routes.unshift({
+
+   // change user information
+   plugin.routes["content-api"].routes.unshift({
     method: "PUT",
     path: "/users/change-user-thumbnail",
     handler: "user.changeUserThumbnail",
@@ -451,23 +356,18 @@ module.exports = (plugin) => {
     },
   });
 
-  // plugin.routes["content-api"].routes.unshift({
-  //   method: "DELETE",
-  //   path: "/products/:id",
-  //   handler: "user.deleteProduct",
-  //   config: {
-  //     prefix: "",
-  //   },
-  // });
 
   plugin.routes["content-api"].routes.unshift({
     method: "DELETE",
-    path: "/productsD/:id",
-    handler: "user.deleteProductCol",
+    path: "/products/:id",
+    handler: "user.deleteProduct",
     config: {
       prefix: "",
     },
   });
+  
+
+
 
   return plugin;
 };
