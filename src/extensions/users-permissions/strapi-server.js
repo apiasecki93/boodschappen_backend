@@ -331,6 +331,46 @@ module.exports = (plugin) => {
   //   }
   // };
 
+  plugin.controllers.user.removeUserThumbnail = async (ctx) => {
+    // console.log("removeUserThumbnail: Function called");
+
+    const user = ctx.state.user;
+    if (!user) {
+      // console.log("removeUserThumbnail: No user found in context");
+      return ctx.unauthorized("User not authorized");
+    }
+
+    const { thumbnailId } = ctx.request.body;
+    if (!thumbnailId) {
+      // console.log("removeUserThumbnail: Thumbnail ID not provided");
+      return ctx.badRequest("Thumbnail ID is required");
+    }
+
+    try {
+      // console.log(`removeUserThumbnail: Fetching file with ID ${thumbnailId}`);
+      const file = await strapi.entityService.findOne(
+        "plugin::upload.file",
+        thumbnailId
+      );
+
+      // console.log(file)
+
+      if (!file) {
+        // console.log("removeUserThumbnail: File not found");
+        return ctx.notFound("Thumbnail not found");
+      }
+
+      // console.log(`removeUserThumbnail: Removing file with ID ${thumbnailId}`);
+       await strapi.entityService.delete("plugin::upload.file", thumbnailId);
+
+      // console.log("removeUserThumbnail: Thumbnail successfully deleted");
+      return ctx.send({ message: "Thumbnail successfully deleted", status: 200 });
+    } catch (error) {
+      // console.error("removeUserThumbnail Error:", error);
+      return ctx.internalServerError("Error occurred while deleting thumbnail");
+    }
+  };
+
   plugin.controllers.user.deleteProductCol = async (ctx) => {
     const { id: productId } = ctx.params;
 
@@ -459,6 +499,16 @@ module.exports = (plugin) => {
   //     prefix: "",
   //   },
   // });
+
+  // remove user thumbnail
+  plugin.routes["content-api"].routes.unshift({
+    method: "PUT",
+    path: "/users/remove-user-thumbnail",
+    handler: "user.removeUserThumbnail",
+    config: {
+      prefix: "",
+    },
+  });
 
   plugin.routes["content-api"].routes.unshift({
     method: "DELETE",
