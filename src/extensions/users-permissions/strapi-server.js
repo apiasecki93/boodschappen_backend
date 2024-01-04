@@ -11,7 +11,7 @@ module.exports = (plugin) => {
     const user = ctx.state.user;
     if (!user) return ctx.unauthorized();
 
-    console.log(ctx.request.body);
+    // console.log(ctx.request.body);
     if (ctx.is("multipart")) {
       // const { data, files } = parseMultipartData(ctx);
       ctx.request.body = _.pick(data, ["firstname", "lastname"]);
@@ -185,6 +185,7 @@ module.exports = (plugin) => {
   };
 
   plugin.controllers.user.changeUserInfo = async (ctx) => {
+    // console.log("TRIGERED chanegeUserInfo")
     const user = ctx.state.user;
     // console.log(user);
     if (!user) return ctx.unauthorized();
@@ -198,6 +199,7 @@ module.exports = (plugin) => {
     // Check each field to see if it was provided, and if so, add it to the updates object
     if (username) updates.username = username;
     if (email) updates.email = email;
+    // console.log(email)
     if (firstname) updates.firstname = firstname;
     if (lastname) updates.lastname = lastname;
     if (thumbnail) updates.thumbnail = thumbnail;
@@ -473,7 +475,7 @@ module.exports = (plugin) => {
 
   // change user information
   plugin.routes["content-api"].routes.unshift({
-    method: "PUT",
+    method: "POST",
     path: "/users/change-user-info",
     handler: "user.changeUserInfo",
     config: {
