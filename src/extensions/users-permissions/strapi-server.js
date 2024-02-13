@@ -1,5 +1,7 @@
 const _ = require("lodash");
-8;
+
+const jwt = require("jsonwebtoken");
+
 // const { parseMultipartData } = require("@strapi/utils");
 // const bcrypt = require("bcrypt");
 const bcrypt = require("bcryptjs");
@@ -363,10 +365,13 @@ module.exports = (plugin) => {
       }
 
       // console.log(`removeUserThumbnail: Removing file with ID ${thumbnailId}`);
-       await strapi.entityService.delete("plugin::upload.file", thumbnailId);
+      await strapi.entityService.delete("plugin::upload.file", thumbnailId);
 
       // console.log("removeUserThumbnail: Thumbnail successfully deleted");
-      return ctx.send({ message: "Thumbnail successfully deleted", status: 200 });
+      return ctx.send({
+        message: "Thumbnail successfully deleted",
+        status: 200,
+      });
     } catch (error) {
       // console.error("removeUserThumbnail Error:", error);
       return ctx.internalServerError("Error occurred while deleting thumbnail");
@@ -431,6 +436,137 @@ module.exports = (plugin) => {
         "An error occurred during product deletion"
       );
     }
+  };
+
+  // check if user exist base on identifier and if yes return only username and email
+  plugin.controllers.user.getUser = async (ctx) => {
+    const { identifier } = ctx.query;
+    if (!identifier) {
+      return ctx.badRequest("Identifier is required");
+    }
+
+    const users = await strapi.entityService.findMany(
+      "plugin::users-permissions.user",
+      {
+        filters: {
+          $or: [{ email: identifier }, { username: identifier }],
+        },
+        limit: 1,
+        fields: ["username", "email"],
+      }
+    );
+
+    if (!users.length) {
+      return ctx.notFound("User not found");
+    }
+
+    ctx.status = 200;
+    return ctx.send(users[0]);
+  };
+
+  // check if user exist base on identifier and if yes return everything <- dangerous for security
+  // plugin.controllers.user.getUser = async (ctx) => {
+  //   const { identifier } = ctx.query;
+  //   if (!identifier) {
+  //     return ctx.badRequest("Identifier is required");
+  //   }
+
+  //   const users = await strapi.entityService.findMany(
+  //     "plugin::users-permissions.user",
+  //     {
+  //       filters: {
+  //         $or: [{ email: identifier }, { username: identifier }],
+  //       },
+  //       limit: 1,
+  //     }
+  //   );
+
+  //   if (!users.length) {
+  //     return ctx.notFound("User not found");
+  //   }
+
+  //   return ctx.send(users[0]);
+  // };
+
+  // sent link to reset password
+  plugin.controllers.user.forgotPassword = async (ctx) => {
+    const { email } = ctx.request.body; // Użycie ctx.request.body zamiast ctx.query
+    // console.log(email);
+    if (!email) {
+      return ctx.badRequest("Email is required");
+    }
+
+    const user = await strapi.db
+      .query("plugin::users-permissions.user")
+      .findOne({ where: { email } });
+
+    if (!user) {
+      return ctx.notFound("User not found");
+    }
+
+    const token = strapi.plugins["users-permissions"].services.jwt.issue({
+      id: user.id,
+    });
+
+    // const resetLink = `http://localhost:3000/auth/reset-password?token=${token}`;
+    const resetLink = `http://boodschaapapp.vercel.app/auth/reset-password?token=${token}`;
+
+    const emailOptions = {
+      to: user.email,
+      subject: "Reset your password",
+      html: `
+      <div style="font-family: Arial, sans-serif; color: #03ffc4; background-color: #000; border: 2px solid #03ffc4; padding: 20px;">
+        <h2 style="color: #03ffc4;">Reset Your Password</h2>
+        <p>Click the link below to reset your password:</p>
+        <a href="${resetLink}" style="color: #03ffc4;">Reset Password</a>
+      </div>
+      `,
+    };
+
+    try {
+      await strapi.plugins.email.services.email.send(emailOptions);
+      return ctx.send({ message: "Reset link sent" });
+    } catch (error) {
+      return ctx.internalServerError("Error sending reset link");
+    }
+  };
+
+  // get token and password and make function called resetPassword to reset password
+  plugin.controllers.user.resetPassword = async (ctx) => {
+    const { token, password } = ctx.request.body;
+    // console.log(token);
+    // console.log(password);
+    if (!token || !password) {
+      return ctx.badRequest("Token and password are required");
+    }
+
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+    // console.log(decodedToken); // { id: user_id, ... }
+
+    const id = decodedToken.id;
+    // console.log(id);
+    // const { id } =
+    //   strapi.plugins["users-permissions"].services.jwt.verify(token);
+
+    // console.log(id);
+
+    if (!id) {
+      return ctx.badRequest("Invalid token");
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const updatedUser = await strapi.db
+      .query("plugin::users-permissions.user")
+      .update({
+        where: { id },
+        data: { resetPasswordToken: null, password: hashedPassword },
+      });
+
+    if (!updatedUser) {
+      return ctx.internalServerError("Error updating password");
+    }
+
+    return ctx.send({ message: "Password updated" });
   };
 
   // Add the custom Update me route
@@ -516,6 +652,36 @@ module.exports = (plugin) => {
     method: "DELETE",
     path: "/productsD/:id",
     handler: "user.deleteProductCol",
+    config: {
+      prefix: "",
+    },
+  });
+
+  // check if user exist base on identifier and if yes return user data
+  plugin.routes["content-api"].routes.unshift({
+    method: "GET",
+    path: "/users/get-user",
+    handler: "user.getUser",
+    config: {
+      prefix: "",
+    },
+  });
+
+  // sent link to reset password
+  plugin.routes["content-api"].routes.unshift({
+    method: "POST",
+    path: "/users/forgot-password",
+    handler: "user.forgotPassword",
+    config: {
+      prefix: "",
+    },
+  });
+
+  // get token and password and make function called resetPassword to reset password
+  plugin.routes["content-api"].routes.unshift({
+    method: "POST",
+    path: "/users/reset-password",
+    handler: "user.resetPassword",
     config: {
       prefix: "",
     },
