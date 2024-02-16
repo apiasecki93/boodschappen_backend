@@ -274,66 +274,66 @@ module.exports = (plugin) => {
     );
   };
 
-  plugin.controllers.user.deleteProduct = async (ctx) => {
-    const { id: productId } = ctx.params;
+   // plugin.controllers.user.deleteProduct = async (ctx) => {
+  //   const { id: productId } = ctx.params;
 
-    if (!productId) {
-      return ctx.badRequest("Product ID is required");
-    }
+  //   if (!productId) {
+  //     return ctx.badRequest("Product ID is required");
+  //   }
 
-    try {
-      // Znalezienie produktu w kolekcji produktów
-      const product = await strapi.db
-        .query("product")
-        .findOne({ where: { id: productId } });
+  //   try {
+  //     // Znalezienie produktu w kolekcji produktów
+  //     const product = await strapi.db
+  //       .query("product")
+  //       .findOne({ where: { id: productId } });
 
-      if (!product) {
-        return ctx.notFound("Product not found");
-      }
+  //     if (!product) {
+  //       return ctx.notFound("Product not found");
+  //     }
 
-      const productName = product.productName; // Pobieranie nazwy produktu
+  //     const productName = product.productName; // Pobieranie nazwy produktu
 
-      // Znalezienie i usunięcie wpisu produktu z dynamicznej listy na podstawie nazwy produktu
-      const shoppingListId = 1; // Zakładając, że jest jedna lista zakupów
-      const existingList = await strapi.entityService.findOne(
-        "api::shopping-list.shopping-list",
-        shoppingListId,
-        {
-          populate: {
-            dynamicShoppingList: { populate: ["product", "users"] },
-          },
-        }
-      );
+  //     // Znalezienie i usunięcie wpisu produktu z dynamicznej listy na podstawie nazwy produktu
+  //     const shoppingListId = 1; // Zakładając, że jest jedna lista zakupów
+  //     const existingList = await strapi.entityService.findOne(
+  //       "api::shopping-list.shopping-list",
+  //       shoppingListId,
+  //       {
+  //         populate: {
+  //           dynamicShoppingList: { populate: ["product", "users"] },
+  //         },
+  //       }
+  //     );
 
-      if (existingList) {
-        const entryIndex = existingList.dynamicShoppingList.findIndex(
-          (entry) => entry.product && entry.product.productName === productName
-        );
+  //     if (existingList) {
+  //       const entryIndex = existingList.dynamicShoppingList.findIndex(
+  //         (entry) => entry.product && entry.product.productName === productName
+  //       );
 
-        if (entryIndex !== -1) {
-          existingList.dynamicShoppingList.splice(entryIndex, 1);
-          await strapi.entityService.update(
-            "api::shopping-list.shopping-list",
-            shoppingListId,
-            {
-              data: {
-                dynamicShoppingList: existingList.dynamicShoppingList,
-              },
-            }
-          );
-        }
-      }
+  //       if (entryIndex !== -1) {
+  //         existingList.dynamicShoppingList.splice(entryIndex, 1);
+  //         await strapi.entityService.update(
+  //           "api::shopping-list.shopping-list",
+  //           shoppingListId,
+  //           {
+  //             data: {
+  //               dynamicShoppingList: existingList.dynamicShoppingList,
+  //             },
+  //           }
+  //         );
+  //       }
+  //     }
 
-      // Usunięcie produktu z kolekcji produktów
-      await strapi.db
-        .query("product")
-        .delete({ where: { id: productId } });
+  //     // Usunięcie produktu z kolekcji produktów
+  //     await strapi.db
+  //       .query("product")
+  //       .delete({ where: { id: productId } });
 
-      return ctx.send({ message: "Product successfully deleted" });
-    } catch (error) {
-      return ctx.internalServerError("An error occurred during product deletion");
-    }
-  };
+  //     return ctx.send({ message: "Product successfully deleted" });
+  //   } catch (error) {
+  //     return ctx.internalServerError("An error occurred during product deletion");
+  //   }
+  // };
 
   plugin.controllers.user.removeUserThumbnail = async (ctx) => {
     // console.log("removeUserThumbnail: Function called");
@@ -378,65 +378,76 @@ module.exports = (plugin) => {
     }
   };
 
-  // plugin.controllers.user.deleteProductCol = async (ctx) => {
-  //   const { id: productId } = ctx.params;
+  plugin.controllers.user.deleteProductColection = async (ctx) => {
+    const { id: productId } = ctx.params;
 
-  //   if (!productId) {
-  //     return ctx.badRequest("Product ID is required");
-  //   }
+    // console.log(productId);
 
-  //   try {
-  //     const product = await strapi.db
-  //       .query("api::product.product")
-  //       .findOne({ where: { id: productId } });
+    if (!productId) {
+      return ctx.badRequest("Product ID is required");
+    }
 
-  //     if (!product) {
-  //       return ctx.notFound("Product not found");
-  //     }
+    try {
+      const product = await strapi.db
+        .query("api::product.product")
+        .findOne({ where: { id: productId } });
 
-  //     const productName = product.productName;
+        // console.log(product);
 
-  //     const shoppingListId = 1;
-  //     const existingList = await strapi.entityService.findOne(
-  //       "api::shopping-list.shopping-list",
-  //       shoppingListId,
-  //       {
-  //         populate: {
-  //           dynamicShoppingList: { populate: ["product", "users"] },
-  //         },
-  //       }
-  //     );
+      if (!product) {
+        return ctx.notFound("Product not found");
+      }
 
-  //     if (existingList) {
-  //       const entryIndex = existingList.dynamicShoppingList.findIndex(
-  //         (entry) => entry.product && entry.product.productName === productName
-  //       );
+      const productName = product.productName;
+      // console.log(productName, 'My consoleLog');
 
-  //       if (entryIndex !== -1) {
-  //         existingList.dynamicShoppingList.splice(entryIndex, 1);
-  //         await strapi.entityService.update(
-  //           "api::shopping-list.shopping-list",
-  //           shoppingListId,
-  //           {
-  //             data: {
-  //               dynamicShoppingList: existingList.dynamicShoppingList,
-  //             },
-  //           }
-  //         );
-  //       }
-  //     }
+      const shoppingListId = 1;
+      const existingList = await strapi.entityService.findOne(
+        "api::shopping-list.shopping-list",
+        shoppingListId,
+        {
+          populate: {
+            dynamicShoppingList: { populate: ["product", "users"] },
+          },
+        }
+      );
 
-  //     await strapi.db
-  //       .query("api::product.product")
-  //       .delete({ where: { id: productId } });
+      // console.log(existingList, 'My consoleLog2');
 
-  //     return ctx.send({ message: "Product successfully deleted" });
-  //   } catch (error) {
-  //     return ctx.internalServerError(
-  //       "An error occurred during product deletion"
-  //     );
-  //   }
-  // };
+      if (existingList) {
+        const entryIndex = existingList.dynamicShoppingList.findIndex(
+          (entry) => entry.product && entry.product.productName === productName
+        );
+
+        // console.log(entryIndex, 'My consoleLo3');
+
+        if (entryIndex !== -1) {
+          existingList.dynamicShoppingList.splice(entryIndex, 1);
+          await strapi.entityService.update(
+            "api::shopping-list.shopping-list",
+            shoppingListId,
+            {
+              data: {
+                dynamicShoppingList: existingList.dynamicShoppingList,
+              },
+            }
+          );
+        }
+      }
+
+      await strapi.db
+        .query("api::product.product")
+        .delete({ where: { id: productId } });
+
+
+
+      return ctx.send({ message: "Product successfully deleted" });
+    } catch (error) {
+      return ctx.internalServerError(
+        "An error occurred during product deletion"
+      );
+    }
+  };
 
   // check if user exist base on identifier and if yes return only username and email
   plugin.controllers.user.getUser = async (ctx) => {
@@ -742,14 +753,14 @@ module.exports = (plugin) => {
     },
   });
 
-  plugin.routes["content-api"].routes.unshift({
-    method: "DELETE",
-    path: "/products/:id",
-    handler: "user.deleteProduct",
-    config: {
-      prefix: "",
-    },
-  });
+  // plugin.routes["content-api"].routes.unshift({
+  //   method: "DELETE",
+  //   path: "/products/:id",
+  //   handler: "user.deleteProduct",
+  //   config: {
+  //     prefix: "",
+  //   },
+  // });
 
   // remove user thumbnail
   plugin.routes["content-api"].routes.unshift({
@@ -761,14 +772,14 @@ module.exports = (plugin) => {
     },
   });
 
-  // plugin.routes["content-api"].routes.unshift({
-  //   method: "DELETE",
-  //   path: "/products/:id",
-  //   handler: "user.deleteProductCol",
-  //   config: {
-  //     prefix: "",
-  //   },
-  // });
+  plugin.routes["content-api"].routes.unshift({
+    method: "POST",
+    path: "/products/:id",
+    handler: "user.deleteProductColection",
+    config: {
+      prefix: "",
+    },
+  });
 
   // check if user exist base on identifier and if yes return user data
   plugin.routes["content-api"].routes.unshift({
