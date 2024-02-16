@@ -274,66 +274,66 @@ module.exports = (plugin) => {
     );
   };
 
-  // plugin.controllers.user.deleteProduct = async (ctx) => {
-  //   const { id: productId } = ctx.params;
+  plugin.controllers.user.deleteProduct = async (ctx) => {
+    const { id: productId } = ctx.params;
 
-  //   if (!productId) {
-  //     return ctx.badRequest("Product ID is required");
-  //   }
+    if (!productId) {
+      return ctx.badRequest("Product ID is required");
+    }
 
-  //   try {
-  //     // Znalezienie produktu w kolekcji produktów
-  //     const product = await strapi.db
-  //       .query("product")
-  //       .findOne({ where: { id: productId } });
+    try {
+      // Znalezienie produktu w kolekcji produktów
+      const product = await strapi.db
+        .query("product")
+        .findOne({ where: { id: productId } });
 
-  //     if (!product) {
-  //       return ctx.notFound("Product not found");
-  //     }
+      if (!product) {
+        return ctx.notFound("Product not found");
+      }
 
-  //     const productName = product.productName; // Pobieranie nazwy produktu
+      const productName = product.productName; // Pobieranie nazwy produktu
 
-  //     // Znalezienie i usunięcie wpisu produktu z dynamicznej listy na podstawie nazwy produktu
-  //     const shoppingListId = 1; // Zakładając, że jest jedna lista zakupów
-  //     const existingList = await strapi.entityService.findOne(
-  //       "api::shopping-list.shopping-list",
-  //       shoppingListId,
-  //       {
-  //         populate: {
-  //           dynamicShoppingList: { populate: ["product", "users"] },
-  //         },
-  //       }
-  //     );
+      // Znalezienie i usunięcie wpisu produktu z dynamicznej listy na podstawie nazwy produktu
+      const shoppingListId = 1; // Zakładając, że jest jedna lista zakupów
+      const existingList = await strapi.entityService.findOne(
+        "api::shopping-list.shopping-list",
+        shoppingListId,
+        {
+          populate: {
+            dynamicShoppingList: { populate: ["product", "users"] },
+          },
+        }
+      );
 
-  //     if (existingList) {
-  //       const entryIndex = existingList.dynamicShoppingList.findIndex(
-  //         (entry) => entry.product && entry.product.productName === productName
-  //       );
+      if (existingList) {
+        const entryIndex = existingList.dynamicShoppingList.findIndex(
+          (entry) => entry.product && entry.product.productName === productName
+        );
 
-  //       if (entryIndex !== -1) {
-  //         existingList.dynamicShoppingList.splice(entryIndex, 1);
-  //         await strapi.entityService.update(
-  //           "api::shopping-list.shopping-list",
-  //           shoppingListId,
-  //           {
-  //             data: {
-  //               dynamicShoppingList: existingList.dynamicShoppingList,
-  //             },
-  //           }
-  //         );
-  //       }
-  //     }
+        if (entryIndex !== -1) {
+          existingList.dynamicShoppingList.splice(entryIndex, 1);
+          await strapi.entityService.update(
+            "api::shopping-list.shopping-list",
+            shoppingListId,
+            {
+              data: {
+                dynamicShoppingList: existingList.dynamicShoppingList,
+              },
+            }
+          );
+        }
+      }
 
-  //     // Usunięcie produktu z kolekcji produktów
-  //     await strapi.db
-  //       .query("product")
-  //       .delete({ where: { id: productId } });
+      // Usunięcie produktu z kolekcji produktów
+      await strapi.db
+        .query("product")
+        .delete({ where: { id: productId } });
 
-  //     return ctx.send({ message: "Product successfully deleted" });
-  //   } catch (error) {
-  //     return ctx.internalServerError("An error occurred during product deletion");
-  //   }
-  // };
+      return ctx.send({ message: "Product successfully deleted" });
+    } catch (error) {
+      return ctx.internalServerError("An error occurred during product deletion");
+    }
+  };
 
   plugin.controllers.user.removeUserThumbnail = async (ctx) => {
     // console.log("removeUserThumbnail: Function called");
@@ -378,65 +378,65 @@ module.exports = (plugin) => {
     }
   };
 
-  plugin.controllers.user.deleteProductCol = async (ctx) => {
-    const { id: productId } = ctx.params;
+  // plugin.controllers.user.deleteProductCol = async (ctx) => {
+  //   const { id: productId } = ctx.params;
 
-    if (!productId) {
-      return ctx.badRequest("Product ID is required");
-    }
+  //   if (!productId) {
+  //     return ctx.badRequest("Product ID is required");
+  //   }
 
-    try {
-      const product = await strapi.db
-        .query("api::product.product")
-        .findOne({ where: { id: productId } });
+  //   try {
+  //     const product = await strapi.db
+  //       .query("api::product.product")
+  //       .findOne({ where: { id: productId } });
 
-      if (!product) {
-        return ctx.notFound("Product not found");
-      }
+  //     if (!product) {
+  //       return ctx.notFound("Product not found");
+  //     }
 
-      const productName = product.productName;
+  //     const productName = product.productName;
 
-      const shoppingListId = 1;
-      const existingList = await strapi.entityService.findOne(
-        "api::shopping-list.shopping-list",
-        shoppingListId,
-        {
-          populate: {
-            dynamicShoppingList: { populate: ["product", "users"] },
-          },
-        }
-      );
+  //     const shoppingListId = 1;
+  //     const existingList = await strapi.entityService.findOne(
+  //       "api::shopping-list.shopping-list",
+  //       shoppingListId,
+  //       {
+  //         populate: {
+  //           dynamicShoppingList: { populate: ["product", "users"] },
+  //         },
+  //       }
+  //     );
 
-      if (existingList) {
-        const entryIndex = existingList.dynamicShoppingList.findIndex(
-          (entry) => entry.product && entry.product.productName === productName
-        );
+  //     if (existingList) {
+  //       const entryIndex = existingList.dynamicShoppingList.findIndex(
+  //         (entry) => entry.product && entry.product.productName === productName
+  //       );
 
-        if (entryIndex !== -1) {
-          existingList.dynamicShoppingList.splice(entryIndex, 1);
-          await strapi.entityService.update(
-            "api::shopping-list.shopping-list",
-            shoppingListId,
-            {
-              data: {
-                dynamicShoppingList: existingList.dynamicShoppingList,
-              },
-            }
-          );
-        }
-      }
+  //       if (entryIndex !== -1) {
+  //         existingList.dynamicShoppingList.splice(entryIndex, 1);
+  //         await strapi.entityService.update(
+  //           "api::shopping-list.shopping-list",
+  //           shoppingListId,
+  //           {
+  //             data: {
+  //               dynamicShoppingList: existingList.dynamicShoppingList,
+  //             },
+  //           }
+  //         );
+  //       }
+  //     }
 
-      await strapi.db
-        .query("api::product.product")
-        .delete({ where: { id: productId } });
+  //     await strapi.db
+  //       .query("api::product.product")
+  //       .delete({ where: { id: productId } });
 
-      return ctx.send({ message: "Product successfully deleted" });
-    } catch (error) {
-      return ctx.internalServerError(
-        "An error occurred during product deletion"
-      );
-    }
-  };
+  //     return ctx.send({ message: "Product successfully deleted" });
+  //   } catch (error) {
+  //     return ctx.internalServerError(
+  //       "An error occurred during product deletion"
+  //     );
+  //   }
+  // };
 
   // check if user exist base on identifier and if yes return only username and email
   plugin.controllers.user.getUser = async (ctx) => {
@@ -513,7 +513,7 @@ module.exports = (plugin) => {
 
     const emailOptions = {
       to: user.email,
-      subject: "Reset your password",
+      subject: "BoodschaapApp - Reset your password",
       html: `
       <div style="font-family: Arial, sans-serif; color: #03ffc4; background-color: #000; border: 2px solid #03ffc4; padding: 20px;">
         <h2 style="color: #03ffc4;">Reset Your Password</h2>
@@ -530,6 +530,93 @@ module.exports = (plugin) => {
       return ctx.internalServerError("Error sending reset link");
     }
   };
+
+
+
+
+  // sent email to new registered user with confirmation link by email
+  // plugin.controllers.user.confirmationLink = async (ctx) => {
+  //   const { email} = ctx.request.body;
+  //   if (!email) {
+  //     return ctx.badRequest("Email is required");
+  //   }
+
+  //   const user = await strapi.db
+  //     .query("plugin::users-permissions.user")
+  //     .findOne({ where: { email } });
+
+  //   if (!user) {
+  //     return ctx.notFound("User not found");
+  //   }
+
+  //   const token = strapi.plugins["users-permissions"].services.jwt.issue({
+  //     id: user.id,
+  //   });
+
+  //   const resetLink = `http://localhost:3000/auth/confirmation-link?token=${token}`;
+  //   // const resetLink = `http://boodschaapapp.vercel.app/auth/reset-password?token=${token}`;
+
+  //   const emailOptions = {
+  //     to: user.email,
+  //     subject: "BoodschaapApp - Confirmation Link",
+  //     html: `
+  //     <div style="font-family: Arial, sans-serif; color: #03ffc4; background-color: #000; border: 2px solid #03ffc4; padding: 20px;">
+  //       <h2 style="color: #03ffc4;">Confirmation Link</h2>
+  //       <p>Click the link below to confirm account:</p>
+  //       <a href="${resetLink}" style="color: #03ffc4;">Confirm</a>
+  //     </div>
+  //     `,
+  //   };
+
+  //   try {
+  //     await strapi.plugins.email.services.email.send(emailOptions);
+  //     return ctx.send({ message: "Reset link sent" });
+  //   } catch (error) {
+  //     return ctx.internalServerError("Error sending reset link");
+  //   }
+
+  // };
+
+
+  // confirm new user by reciving the token and update user status to confirmed
+  plugin.controllers.user.confirmNewUser= async (ctx) => {
+    const { token } = ctx.request.body;
+    if (!token) {
+      return ctx.badRequest("Token is required");
+    }
+
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+    // console.log(decodedToken); // { id: user_id, ... }
+
+    const id = decodedToken.id;
+    // console.log(id);
+    // const { id } =
+    //   strapi.plugins["users-permissions"].services.jwt.verify(token);
+
+    // console.log(id);
+
+    if (!id) {
+      return ctx.badRequest("Invalid token");
+    }
+
+    const updatedUser = await strapi.db
+      .query("plugin::users-permissions.user")
+      .update({
+        where: { id },
+        data: { authorStatus: "Confirmed" },
+      });
+
+    if (!updatedUser) {
+      return ctx.internalServerError("Error updating user status");
+    }
+
+    return ctx.send({ message: "User confirmed" });
+  };
+
+
+
+
+
 
   // get token and password and make function called resetPassword to reset password
   plugin.controllers.user.resetPassword = async (ctx) => {
@@ -568,6 +655,32 @@ module.exports = (plugin) => {
 
     return ctx.send({ message: "Password updated" });
   };
+
+
+  // check if user is confirmed by providing identifier and if yes return 200 if not return 400 and "user not confirmed"
+  plugin.controllers.user.isConfirmed = async (ctx) => {
+    const { identifier } = ctx.query;
+    if (!identifier) {
+      return ctx.badRequest("Identifier is required");
+    }
+
+    const user = await strapi.db
+      .query("plugin::users-permissions.user")
+      .findOne({ where: { email: identifier } });
+
+    if (!user) {
+      return ctx.notFound("User not found");
+    }
+
+    if (user.authorStatus === "Confirmed") {
+      return ctx.send({ message: "User confirmed" });
+    }
+
+    return ctx.badRequest("User not confirmed");
+  };
+
+
+
 
   // Add the custom Update me route
   plugin.routes["content-api"].routes.unshift({
@@ -629,14 +742,14 @@ module.exports = (plugin) => {
     },
   });
 
-  // plugin.routes["content-api"].routes.unshift({
-  //   method: "DELETE",
-  //   path: "/products/:id",
-  //   handler: "user.deleteProduct",
-  //   config: {
-  //     prefix: "",
-  //   },
-  // });
+  plugin.routes["content-api"].routes.unshift({
+    method: "DELETE",
+    path: "/products/:id",
+    handler: "user.deleteProduct",
+    config: {
+      prefix: "",
+    },
+  });
 
   // remove user thumbnail
   plugin.routes["content-api"].routes.unshift({
@@ -648,14 +761,14 @@ module.exports = (plugin) => {
     },
   });
 
-  plugin.routes["content-api"].routes.unshift({
-    method: "DELETE",
-    path: "/productsD/:id",
-    handler: "user.deleteProductCol",
-    config: {
-      prefix: "",
-    },
-  });
+  // plugin.routes["content-api"].routes.unshift({
+  //   method: "DELETE",
+  //   path: "/products/:id",
+  //   handler: "user.deleteProductCol",
+  //   config: {
+  //     prefix: "",
+  //   },
+  // });
 
   // check if user exist base on identifier and if yes return user data
   plugin.routes["content-api"].routes.unshift({
@@ -682,6 +795,36 @@ module.exports = (plugin) => {
     method: "POST",
     path: "/users/reset-password",
     handler: "user.resetPassword",
+    config: {
+      prefix: "",
+    },
+  });
+
+  // sent email to new registered user with confirmation link by email
+  // plugin.routes["content-api"].routes.unshift({
+  //   method: "POST",
+  //   path: "/users/confirmation-link",
+  //   handler: "user.confirmationLink",
+  //   config: {
+  //     prefix: "",
+  //   },
+  // });
+
+  // confirm new user by reciving the token and update user status to confirmed
+  // plugin.routes["content-api"].routes.unshift({
+  //   method: "POST",
+  //   path: "/users/confirm-new-use",
+  //   handler: "user.confirmNewUser",
+  //   config: {
+  //     prefix: "",
+  //   },
+  // });
+
+  // check if user is confirmed by providing identifier and if yes return 200 if not return 400 and "user not confirmed"
+  plugin.routes["content-api"].routes.unshift({
+    method: "GET",
+    path: "/users/is-confirmed",
+    handler: "user.isConfirmed",
     config: {
       prefix: "",
     },
