@@ -34,6 +34,7 @@ module.exports = ({ env }) => ({
         settings: {
           defaultFrom: 'apiasecki93@gmail.com',
           defaultReplyTo: 'apiasecki93@gmail.com',
+          baseUrl: env('FRONTEND_URL', 'http://localhost:3000'),
         },
       },
     },
