@@ -87,7 +87,7 @@ module.exports = (plugin) => {
   //       .controller("user")
   //       .update(ctx);
   //   }
-
+// 
   //   return ctx.badRequest("Favorites needs to be an array", { ok: false });
   // };
 
