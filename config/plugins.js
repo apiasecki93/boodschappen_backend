@@ -29,7 +29,11 @@ module.exports = ({ env }) => ({
             pass: env('SMTP_PASSWORD'),
           },
           secure: true,
-          // ... any custom nodemailer options
+          name: "boodschaapapp.vercel.app",
+          requireTLS: true,
+          tls: {
+          ciphers: 'SSLv3'
+        },
         },
         settings: {
           defaultFrom: 'apiasecki93@gmail.com',
